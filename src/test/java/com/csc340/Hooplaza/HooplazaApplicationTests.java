@@ -1,10 +1,10 @@
-package UNCG.CSC340Fall2023.ClassAssignment;
+package com.csc340.Hooplaza;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ClassAssignmentApplicationTests {
+class HooplazaApplicationTests {
 
 	@Test
 	void contextLoads() {

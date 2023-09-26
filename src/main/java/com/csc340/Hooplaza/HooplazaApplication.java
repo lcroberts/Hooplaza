@@ -1,13 +1,13 @@
-package UNCG.CSC340Fall2023.ClassAssignment;
+package com.csc340.Hooplaza;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ClassAssignmentApplication {
+public class HooplazaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ClassAssignmentApplication.class, args);
+		SpringApplication.run(HooplazaApplication.class, args);
 	}
 
 }
