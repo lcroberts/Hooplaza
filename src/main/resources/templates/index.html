@@ -1,69 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hooplaza Home</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hooplaza Home</title>
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous"
+  />
+  <style>
+        body {
+            padding-top: 67px;
+        }
+        #post-container {
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+            .card-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
 
-  <body>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <nav
-      class="navbar navbar-fixed-top navbar-expand-md bg-dark border-bottom"
-      data-bs-theme="dark"
-    >
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                data-bs-toggle="offcanvas"
-                href="#sidebar"
-                aria-controls="sidebar"
-                ><span class="navbar-toggler-icon"></span
-              ></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    </style>
+</head>
 
-    <div
-      class="offcanvas offcanvas-start"
-      tabindex="-1"
-      id="sidebar"
-      aria-labelledby="sidebarLabel"
-      data-bs-theme="dark"
-    >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebarLabel">Sidebar</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div>placeholder text. Navlist of communities can go here</div>
+<body>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+  <nav
+          class="navbar fixed-top navbar-expand bg-dark border-bottom"
+          data-bs-theme="dark"
+  >
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+                    class="nav-link active"
+                    data-bs-toggle="offcanvas"
+                    href="#sidebar"
+                    aria-controls="sidebar"
+            ><span class="navbar-toggler-icon"></span
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </body>
+  </nav>
+
+  <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="sidebar"
+          aria-labelledby="sidebarLabel"
+          data-bs-theme="dark"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidebarLabel">Sidebar</h5>
+      <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>placeholder text. Navlist of communities can go here</div>
+    </div>
+  </div>
+
+  <div id="post-container">
+    <div class="container">
+      <div id="card-row">
+        <!-- The original card -->
+        <div class="card mb-3"
+             style="max-height: 300px;">
+
+          <div class="row g-0">
+            <div  class="col-5 col-md-4 col-lg-3 ">
+              <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18ae397c438%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18ae397c438%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.421875%22%20y%3D%22104.5%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                   class="card-img-top"
+                   alt="Image goes here"
+                   style="border: 4px solid black; max-width: 12rem;">
+            </div>
+            <div class="col-7 col-md-8 col-lg-9 ">
+              <div class="card-body">
+                <h5 class="card-title">Post 1</h5>
+                <p class="card-text">This is the content of post 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+                o
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const cardRow = document.getElementById('card-row');
+const originalCard = cardRow.querySelector('.card');
+
+for (let i = 2; i <= 10; i++) {
+   const newCard = originalCard.cloneNode(true);
+    newCard.querySelector('.card-title').textContent = `Post ${i}`;
+    newCard.querySelector('.card-text').textContent = `This is the content of post ${i}.`;
+    cardRow.appendChild(newCard);
+}
+</script>
+
+</body>
 </html>
