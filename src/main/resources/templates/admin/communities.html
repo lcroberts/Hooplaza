@@ -57,12 +57,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
+              <a class="nav-link" aria-current="page" href="admin.html"
                 >Requests</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="communities.html">Communities</a>
+              <a class="nav-link active" href="#">Communities</a>
             </li>
           </ul>
           <a href="../../static/index.html" class="btn btn-secondary me-2"
@@ -72,35 +72,6 @@
       </div>
     </nav>
 
-    <div
-      class="modal text-light"
-      tabindex="-1"
-      id="confirmationModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">Are you sure?</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
-              Yes
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div id="post-container">
       <div class="container">
         <div id="card-row">
@@ -109,17 +80,17 @@
           <div class="card mb-3">
             <div class="container-fluid">
               <div class="card-body">
-                <h5 class="card-title">Community Request 1</h5>
-                <h6 class="card-subtitle">Test User</h6>
+                <h5 class="card-title">Community 1</h5>
+                <h6 class="card-subtitle">Example Location</h6>
                 <p class="card-text">
-                  This is community request 1. Lorem ipsum dolor sit amet,
-                  consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  ea commodo consequat. Duis aute irure dolor in reprehenderit
-                  in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                  in culpa qui officia deserunt mollit anim id est laborum.
+                  This is community 1. Lorem ipsum dolor sit amet, consectetur
+                  adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                  sint occaecat cupidatat non proident, sunt in culpa qui
+                  officia deserunt mollit anim id est laborum.
                 </p>
               </div>
               <div class="card-footer">
@@ -129,15 +100,7 @@
                   data-bs-toggle="modal"
                   data-bs-target="#confirmationModal"
                 >
-                  Approve
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Deny
+                  Details
                 </button>
               </div>
             </div>
@@ -152,12 +115,10 @@
 
       for (let i = 2; i <= 10; i++) {
         const newCard = originalCard.cloneNode(true);
-        newCard.querySelector(
-          ".card-title",
-        ).textContent = `Community Request ${i}`;
+        newCard.querySelector(".card-title").textContent = `Community ${i}`;
         newCard.querySelector(
           ".card-text",
-        ).textContent = `This is community request ${i} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+        ).textContent = `This is community ${i} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
         cardRow.appendChild(newCard);
       }
     </script>
