@@ -57,17 +57,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                data-bs-toggle="offcanvas"
-                href="#sidebar"
-                aria-controls="sidebar"
-                ><span class="navbar-toggler-icon"></span
-              ></a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#"
-                >Community Requests</a
+                >Requests</a
               >
             </li>
             <li class="nav-item">
@@ -82,24 +73,31 @@
     </nav>
 
     <div
-      class="offcanvas offcanvas-start"
+      class="modal text-light"
       tabindex="-1"
-      id="sidebar"
-      aria-labelledby="sidebarLabel"
+      id="confirmationModal"
       data-bs-theme="dark"
     >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebarLabel">Sidebar</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div>placeholder text. Navlist of communities can go here</div>
-        <hr />
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">Are you sure?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary me-auto"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -125,6 +123,24 @@
                     proident, sunt in culpa qui officia deserunt mollit anim id
                     est laborum.
                   </p>
+                </div>
+                <div class="card-footer">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmationModal"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmationModal"
+                  >
+                    Deny
+                  </button>
                 </div>
               </div>
             </div>
