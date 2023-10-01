@@ -26,15 +26,10 @@
       <div class="row"></div>
       <div class="row">
         <form>
-          <!-- <select id="accountType" name="accountType"> -->
-          <!--   <option value="Admin">Admin</option> -->
-          <!--   <option value="Moderator">Moderator</option> -->
-          <!--   <option value="User" selected="selected"> -->
-          <!--     Normal User -->
-          <!--   </option></select> -->
-          <!-- <br /> -->
-          <label for="username">Username:</label><br />
-          <input type="text" name="username" id="username" /><br />
+          <label for="email">Name:</label><br />
+          <input type="text" name="name" id="name" /><br />
+          <label for="email">Email:</label><br />
+          <input type="text" name="email" id="email" /><br />
           <label for="password">Password:</label><br />
           <input type="password" name="password" id="password" /><br />
           <label for="confirmPassword">Confirm Password:</label><br />
@@ -42,15 +37,18 @@
             type="confirmPassword"
             name="confirmPassword"
             id="confirmPassword"
-          /><br />
-          <button
-            type="button"
-            id="submit"
-            onclick="formSubmit();"
-            class="btn btn-primary"
+          />
+          <!-- <button -->
+          <!--   type="button" -->
+          <!--   id="submit" -->
+          <!--   class="btn btn-primary m-1" -->
+          <!-- > -->
+          <!--   Sign Up -->
+          <!-- </button> -->
+          <br />
+          <a href="../templates/index.html" class="btn btn-primary m-1"
+            >Sign Up</a
           >
-            Sign Up
-          </button>
           <a href="../static/index.html" class="btn">Back</a>
         </form>
       </div>

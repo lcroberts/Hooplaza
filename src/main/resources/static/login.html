@@ -33,15 +33,15 @@
               Normal User
             </option></select
           ><br />
-          <label for="username">Username:</label><br />
-          <input type="text" name="username" id="username" /><br />
+          <label for="email">Email:</label><br />
+          <input type="text" name="email" id="email" /><br />
           <label for="password">Password:</label><br />
           <input type="password" name="password" id="password" /><br />
           <button
             type="button"
             id="submit"
             onclick="formSubmit();"
-            class="btn btn-primary"
+            class="btn btn-primary m-1"
           >
             Login
           </button>
@@ -57,7 +57,7 @@
       console.log("Selected account is: " + accountType);
       switch (accountType) {
         case "Admin":
-          window.location.href = "../templates/index.html"; // Redirect to the Admin page
+          window.location.href = "../templates/admin/admin.html"; // Redirect to the Admin page
           break;
         case "Moderator":
           window.location.href = "../templates/index.html"; // Redirect to the Moderator page
