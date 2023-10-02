@@ -10,6 +10,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
 
   <body>
@@ -18,6 +19,43 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+
+    <div
+      class="modal text-light"
+      tabindex="-1"
+      id="userDetailsModal"
+      data-bs-theme="dark"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h2>User Details Template</h2>
+            <hr />
+            <p>
+              Email: example@example.com <br />
+              Name: John Doe
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmationModal"
+            >
+              Ban User
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary me-auto"
+              data-bs-dismiss="modal"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div
       class="modal text-light"
@@ -163,7 +201,14 @@
         <h2 class="text-center mt-3">Moderators</h2>
         <ul class="list-group px-5">
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 1</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 1</a
+              >
+            </div>
             <button
               type="button"
               class="btn btn-primary"
@@ -175,7 +220,14 @@
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 2</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 2</a
+              >
+            </div>
             <button
               type="button"
               class="btn btn-primary"
@@ -187,7 +239,14 @@
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 3</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 3</a
+              >
+            </div>
             <button
               type="button"
               class="btn btn-primary"
@@ -199,7 +258,14 @@
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 4</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 4</a
+              >
+            </div>
             <button
               type="button"
               class="btn btn-primary"
@@ -243,19 +309,47 @@
         <h2 class="text-center mt-3">Users</h2>
         <ul class="list-group px-5">
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 1</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 1</a
+              >
+            </div>
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 2</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 2</a
+              >
+            </div>
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 3</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 3</a
+              >
+            </div>
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">Test User 4</div>
+            <div class="ms-2">
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userDetailsModal"
+                >Test User 4</a
+              >
+            </div>
           </li>
         </ul>
         <br />

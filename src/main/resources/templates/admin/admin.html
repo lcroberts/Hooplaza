@@ -10,7 +10,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
       body {
         padding-top: 67px;
@@ -49,6 +49,44 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+
+    <div
+      class="modal text-light"
+      tabindex="-1"
+      id="userDetailsModal"
+      data-bs-theme="dark"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h2>User Details Template</h2>
+            <hr />
+            <p>
+              Email: example@example.com <br />
+              Name: John Doe
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmationModal"
+            >
+              Ban User
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary me-auto"
+              data-bs-dismiss="modal"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav
       class="navbar fixed-top navbar-expand bg-dark border-bottom"
       data-bs-theme="dark"
@@ -107,44 +145,49 @@
           <!-- The original card -->
 
           <div class="card mb-3">
-
-              <div class="card-body">
-                <h5 class="card-title">Community Request 1</h5>
-                <h6 class="card-subtitle">Test User</h6>
-                <p class="card-text">
-                  This is community request 1. Lorem ipsum dolor sit amet,
-                  consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  ea commodo consequat. Duis aute irure dolor in reprehenderit
-                  in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                  in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-              </div>
-              <div class="card-footer">
-                <button
-                  type="button"
-                  class="btn btn-primary"
+            <div class="card-body">
+              <h5 class="card-title">Community Request 1</h5>
+              <h6 class="card-subtitle">
+                <a
+                  href="#"
                   data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
+                  data-bs-target="#userDetailsModal"
+                  >Test User</a
                 >
-                  Approve
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Deny
-                </button>
-              </div>
+              </h6>
+              <p class="card-text">
+                This is community request 1. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <div class="card-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmationModal"
+              >
+                Approve
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmationModal"
+              >
+                Deny
+              </button>
             </div>
           </div>
         </div>
       </div>
-
+    </div>
 
     <script>
       const cardRow = document.getElementById("card-row");
