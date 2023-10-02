@@ -21,7 +21,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 5;
+          -webkit-line-clamp: 6;
           -webkit-box-orient: vertical;
         }
         .square-image {
@@ -105,9 +105,9 @@
         <div id="card-row">
           <!-- The original card -->
 
-          <div class="card mb-3">
+          <div class="card mb-3 border-dark">
             <div class="row g-0">
-              <div class="col-5 col-md-4 col-lg-3">
+              <div class="col-5 col-md-4 col-lg-3" data-bs-toggle="modal" data-bs-target="#myModal">
                 <div class="square-image">
                   <img
                     src="https://thumbs.dreamstime.com/b/constructing-tall-apartment-building-25983938.jpg"
@@ -116,7 +116,7 @@
                   />
                 </div>
               </div>
-              <div class="col-7 col-md-8 col-lg-9">
+              <div class="col-7 col-md-8 col-lg-9" data-bs-toggle="modal" data-bs-target="#myModal">
                 <div class="card-body">
                   <h5 class="card-title">Post 1</h5>
                   <p class="card-text">
@@ -166,16 +166,71 @@
       </div>
     </div>
 
+
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="min-height: 500px">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="square-image">
+                  <img id="modalImage" src="" alt="Image goes here" style="border: 4px solid black; max-width: 100%" />
+                </div>
+              </div>
+              <div class="col-md-7">
+                <p id="modalBodyText"></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       const cardRow = document.getElementById("card-row");
       const originalCard = cardRow.querySelector(".card");
+      const modalTitle = document.querySelector(".modal-title");
+      const modalBodyText = document.querySelector("#modalBodyText");
+      const modalImage = document.querySelector("#modalImage");
+
+      // Function to update modal content
+      function updateModalContent(title, body, imageUrl) {
+        modalTitle.textContent = title;
+        modalBodyText.textContent = body;
+        modalImage.src = imageUrl;
+      }
+
+      // Add a click event listener to the original card
+      originalCard.addEventListener("click", () => {
+        const cardTitle = originalCard.querySelector(".card-title");
+        const cardText = originalCard.querySelector(".card-text");
+        const cardImage = originalCard.querySelector("img");
+
+        updateModalContent(cardTitle.textContent, cardText.textContent, cardImage.src);
+      });
 
       for (let i = 2; i <= 10; i++) {
         const newCard = originalCard.cloneNode(true);
-        newCard.querySelector(".card-title").textContent = `Post ${i}`;
-        newCard.querySelector(
-          ".card-text",
-        ).textContent = `This is the content of post ${i} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+        const cardTitle = newCard.querySelector(".card-title");
+        const cardText = newCard.querySelector(".card-text");
+        const cardImage = newCard.querySelector("img");
+
+        cardTitle.textContent = `Post ${i}`;
+        cardText.textContent = `This is the content of post ${i} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+
+        // Add a click event listener to each new card
+        newCard.addEventListener("click", () => {
+          updateModalContent(cardTitle.textContent, cardText.textContent, cardImage.src);
+        });
+
         cardRow.appendChild(newCard);
       }
     </script>
