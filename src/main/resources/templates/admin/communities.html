@@ -74,35 +74,43 @@
 
     <div id="post-container">
       <div class="container">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <br />
         <div id="card-row">
           <!-- The original card -->
 
           <div class="card mb-3">
-
-              <div class="card-body">
-                <h5 class="card-title">Community 1</h5>
-                <h6 class="card-subtitle">Example Location</h6>
-                <p class="card-text">
-                  This is community 1. Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                  sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum.
-                </p>
-              </div>
-              <div class="card-footer">
-                <a href="community-details.html" class="btn btn-primary"
-                  >Details</a
-                >
-              </div>
+            <div class="card-body">
+              <h5 class="card-title">Community 1</h5>
+              <h6 class="card-subtitle">Example Location</h6>
+              <p class="card-text">
+                This is community 1. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <div class="card-footer">
+              <a href="community-details.html" class="btn btn-primary"
+                >Details</a
+              >
             </div>
           </div>
         </div>
       </div>
-
+    </div>
 
     <script>
       const cardRow = document.getElementById("card-row");
