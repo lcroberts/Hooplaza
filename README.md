@@ -1,6 +1,4 @@
-## Hoopla Plaza
-
-## HooPlaza
+# HooPlaza
 
 ## Team Members
 >Logan Roberts, Ethan Mongelli, Kol Herget
