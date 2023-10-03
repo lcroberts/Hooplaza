@@ -155,10 +155,29 @@
         </div>
         <div class="modal-footer">
           <div class="container-fluid">
-            <label class="btn btn-primary btn-sm btn-floating rounded-circle">
-              <span class="bi bi-paperclip"></span>
-              <input type="file" hidden>
-            </label>
+            <div class="row justify-content-start">
+            <div class="col-sm-2">
+              <label class="btn btn-primary btn-sm btn-floating rounded-circle">
+                <span class="bi bi-paperclip"></span>
+                <input type="file" hidden>
+              </label>
+            </div>
+            <div class="col-sm-4">
+              <div class="dropdown">
+                <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="addTag" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Add tag
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="tagMenu" aria-labelledby="addTag">
+                  <li><a class="dropdown-item" href="#"><span class="badge rounded-pill bg-warning">Club</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="badge rounded-pill bg-danger">Project</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="badge rounded-pill bg-success">Event</span></a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">No tag</a></li>
+                </ul>
+              </div>
+            </div>
+            </div>
           </div>
         </div>
       </div>
