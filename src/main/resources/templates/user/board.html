@@ -43,17 +43,18 @@
           object-fit: cover;
         }
         .floating-button{
-          position:fixed;
+          position:absolute;
           width:40px;
           height:40px;
           bottom:40rem;
           right:40rem;
-          background-color:#0C9;
+          background-color: transparent !important;
           color:#FFF;
           border-radius:50px;
-          text-align:center;
+          align-items:center;
+          align-self: flex-end;
           box-shadow: 2px 2px 3px #999;
-          z-index: 1000;
+          z-index: 2000;
         }
       }
     </style>
@@ -99,13 +100,6 @@
       </div>
     </nav>
 
-  <!-- Post Button -->
-  <div class="container-fluid">
-  <button type="button" class="btn btn-primary btn-floating">
-    <span class="bi-plus-lg"></span>
-  </button>
-  </div>
-
   <!-- requestCommunity modal -->
   <div class="modal fade" id="requestCommunity" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -139,9 +133,41 @@
     </div>
   </div>
 
+  <!-- Post Modal -->
+  <div class="modal fade" id="newPost" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-sm-10 text-wrap d-flex">
+                <textarea class="form-control" id="postText" placeholder="What's new with you?"></textarea>
+              </div>
+              <div class="col-sm-2 d-flex align-items-center">
+                <button type="button" class="btn btn-primary btn-sm">Post</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container-fluid">
+            <label class="btn btn-primary btn-sm btn-floating rounded-circle">
+              <span class="bi bi-paperclip"></span>
+              <input type="file" hidden>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <!-- Offcanvas -->
     <div
-      class="offcanvas offcanvas-start"
+      class="offcanvas offcanvas-start text-bg-dark"
       tabindex="-1"
       id="sidebar"
       aria-labelledby="sidebarLabel"
@@ -170,6 +196,14 @@
         <p style="font-size:12px">Don't see your community? <button type="button" class="btn btn-sm btn-link" data-bs-toggle="modal" data-bs-target="#requestCommunity">Request one</button></p>
       </div>
     </div>
+
+  <!-- Post Button -->
+  <div class="container m-1" id="floating-button">
+    <div class="btn btn-primary btn-lg btn-floating rounded-circle" data-bs-toggle="modal" data-bs-target="#newPost">
+      <span class="bi bi-plus-lg"></span>
+    </div>
+  </div>
+
 
     <div id="post-container">
       <div class="container">
@@ -242,7 +276,7 @@
       <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Post Title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" style="min-height: 500px">

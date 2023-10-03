@@ -75,18 +75,51 @@
       >
     </div>
   </div>
-
 </nav>
 
+<!-- requestCommunity modal -->
+<div class="modal fade" id="requestCommunity" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request Community</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row justify-content-between">
+            <div class="col-lg-12">
+              <img
+                      src="https://assets.urbanturf.com/dc/images/blog/2018/08/google-map.jpg"
+                      alt="placeholder image for interactive map"
+                      style="border: 2px solid black; max-width: 100%; margin-bottom:10px"
+              >
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-sm-10">
+              <input type="text" id="request" placeholder="Where is your community?" style="width: 100%">
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary btn-sm">Go</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas -->
 <div
-        class="offcanvas offcanvas-start"
+        class="offcanvas offcanvas-start text-bg-dark"
         tabindex="-1"
         id="sidebar"
         aria-labelledby="sidebarLabel"
         data-bs-theme="dark"
 >
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="sidebarLabel">Sidebar</h5>
+    <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
     <button
             type="button"
             class="btn-close"
@@ -95,7 +128,17 @@
     ></button>
   </div>
   <div class="offcanvas-body">
-    <div>placeholder text. Navlist of communities can go here</div>
+    <div><h6>Your Communities</h6></div>
+    <nav>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-dark active text-start" aria-current="page">Community 1</button>
+        <button type="button" class="btn btn-dark text-start" >Community 2</button>
+        <button type="button" class="btn btn-dark text-start" >Community 3</button>
+      </div>
+    </nav>
+  </div>
+  <div class="offcanvas-footer">
+    <p style="font-size:12px">Don't see your community? <button type="button" class="btn btn-sm btn-link" data-bs-toggle="modal" data-bs-target="#requestCommunity">Request one</button></p>
   </div>
 </div>
 
