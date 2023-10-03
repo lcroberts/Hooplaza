@@ -18,13 +18,19 @@
       .left-column {
           background-color: #333; /* Dark background color */
           color: white; /* White text color */
+          max-height: calc(100vh - 67px);
+          overflow-y: auto;
 
+      }
+
+      .tab-pane{
+      max-height: calc(100vh - 125px);
+          overflow-y: auto;
       }
 
       .right-column {
           background-color: #f8f9fa; /* Light gray background color for the right column */
-          height: calc(100vh - 56px); /* Subtract the height of the navbar to ensure it starts below the navbar */
-          overflow-y: auto;
+
       }
 
       /* Adjust margin for the button group */
@@ -56,10 +62,10 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
-                  class="nav-link active"
-                  data-bs-toggle="offcanvas"
-                  href="#sidebar"
-                  aria-controls="sidebar"
+              class="nav-link active"
+              data-bs-toggle="offcanvas"
+              href="#sidebar"
+              aria-controls="sidebar"
           ><span class="navbar-toggler-icon"></span
           ></a>
         </li>
@@ -78,7 +84,7 @@
 </nav>
 
 <!-- requestCommunity modal -->
-<div class="modal fade" id="requestCommunity" tabindex="-1">
+<div class="modal fade" id="requestCommunity" tabindex="">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -144,7 +150,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <!-- Left Column for List of Followed Community Posts with Square Tabs -->
+    <!-- Left Column for List of Bookmarked Community Posts -->
     <div class="col-md-3 left-column d-flex flex-column">
       <h3 class="text-center">Bookmarks</h3>
       <ul class="nav flex-column nav-pills" id="bookmarks-tabs">
@@ -152,39 +158,41 @@
         <li class="nav-item">
           <a class="nav-link active" id="bookmarks-tab1" data-toggle="tab" href="#bookmarks1">Post 1</a>
         </li>
-        <!-- Use a loop to create tabs for Post 2 to Post 10 -->
-        <!-- Example loop in JavaScript -->
         <script>
-                        for (let i = 2; i <= 10; i++) {
-                            document.write(`
-                                <li class="nav-item">
-                                    <a class="nav-link" id="bookmarks-tab${i}" data-toggle="tab" href="#bookmarks${i}">Post ${i}</a>
-                                </li>
-                            `);
-                        }
-                    </script>
+          for (let i = 2; i <= 20; i++) {
+              document.write(`
+                  <li class="nav-item">
+                      <a class="nav-link" id="bookmarks-tab${i}" data-toggle="tab" href="#bookmarks${i}">Post ${i}</a>
+                  </li>
+              `);
+          }
+        </script>
       </ul>
     </div>
 
-    <!-- Right Column for Scrollable List of Updated Posts -->
+    <!-- Right Column for Bookmarked Post Updates -->
     <div class="col-md-9 right-column">
       <!-- Button Group for Updates, Tab 2, and Tab 3 -->
-      <div class="row static">
-        <div class="col-md-12">
-          <div class="btn-group button-group button-group-full-width" role="group">
-            <button type="button" class="btn btn-secondary">Updates</button>
-            <button type="button" class="btn btn-secondary">Tab 2</button>
-            <button type="button" class="btn btn-secondary">Tab 3</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab Content -->
       <div class="row">
         <div class="col-md-12">
 
+          <div class="btn-group button-group button-group-full-width" role="group">
+            <input type="radio" class="btn-check" name="btnradio" id="pst-updates" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="pst-updates">Updates</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">*placeholder*</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">*placeholder*</label>
+          </div>
+        </div>
+
+
+        <!-- Tab Content -->
+        <div class="col-md-12">
             <!-- Updates Tab Content -->
-            <div class="tab-pane fade show active" id="updates" role="tabpanel" aria-labelledby="updates-tab">
+            <div class="tab-pane fade show active" id="tab-pane" role="tabpanel" aria-labelledby="updates-tab">
               <!-- Scrollable List of Update Posts (Cards) -->
               <div class="scrollable-content">
                 <!-- Existing "Post Updates" card -->
@@ -195,9 +203,13 @@
                     <p class="card-text">This is the content of the post updates.</p>
                   </div>
                 </div>
-
-                <!-- New "Post Updates" card with a large image and placeholder text -->
-
+                <div class="card mb-3">
+                  <img src="https://3.bp.blogspot.com/-IuM2zG-zOeU/XFxTMYV_IrI/AAAAAAAABds/YyLFdym3BUgGZ2PyrO-AlR88otNWcLebgCLcBGAs/s1600/Spanish%2BClub%2BMeeting%2B%2528Feb%2B7%252C%2B2019%2529.jpg" class="card-img-top" alt="Image">
+                  <div class="card-body">
+                    <h5 class="card-title">Post Updates</h5>
+                    <p class="card-text">This is the content of the post updates.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
