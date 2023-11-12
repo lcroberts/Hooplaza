@@ -30,7 +30,7 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.ERROR).permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/signup/**").permitAll()
                         .requestMatchers("/mod/**").hasAuthority("MOD")
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")

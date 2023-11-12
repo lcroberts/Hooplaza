@@ -1,5 +1,6 @@
 package com.csc340.Hooplaza;
 
+import com.csc340.Hooplaza.user.User;
 import com.csc340.Hooplaza.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,12 @@ public class HomeController {
     @GetMapping("/signup")
     public String signup() {
         return "user/signup";
+    }
+
+    @GetMapping("/signup/create")
+    public String signupCreate(User user) {
+        userService.saveUser(user);
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
