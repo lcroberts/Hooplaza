@@ -23,7 +23,7 @@ public class UserService {
     private PostRepository postRepo;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Get all users

@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
+                        .defaultSuccessUrl("/")
                 ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
                 .logout(LogoutConfigurer::permitAll)
                 .requestCache((cache) -> cache

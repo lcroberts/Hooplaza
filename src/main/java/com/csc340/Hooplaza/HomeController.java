@@ -1,5 +1,7 @@
 package com.csc340.Hooplaza;
 
+import com.csc340.Hooplaza.community.Community;
+import com.csc340.Hooplaza.post.Post;
 import com.csc340.Hooplaza.user.User;
 import com.csc340.Hooplaza.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -26,8 +31,11 @@ public class HomeController {
         return "user/signup";
     }
 
-    @GetMapping("/signup/create")
+    @PostMapping("/signup/create")
     public String signupCreate(User user) {
+        user.setCommunities(new ArrayList<Community>());
+        user.setBookmarks(new ArrayList<Post>());
+        user.setRole("USER");
         userService.saveUser(user);
         return "redirect:/login";
     }
