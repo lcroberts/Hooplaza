@@ -14,9 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
-/**
- * @author sentini
- */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -32,6 +29,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.ERROR).permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/signup").permitAll()
                         .requestMatchers("/mod/**").hasAuthority("MOD")
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")
