@@ -37,7 +37,7 @@ public class HomeController {
         user.setBookmarks(new ArrayList<Post>());
         user.setRole("USER");
         userService.saveUser(user);
-        return "redirect:/login";
+        return "redirect:/user";
     }
 
     @GetMapping("/login")
