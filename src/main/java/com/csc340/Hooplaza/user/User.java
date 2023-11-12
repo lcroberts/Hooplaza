@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,17 +24,20 @@ public class User {
 
     private String name;
     private String email;
+    private String role;
+    private String password;
     @Transient
     private List<Community> communities;
     @Transient
     private List<Post> bookmarks;
 
-    public User(String name, String email, List<Community> communities) {
+    public User(String name, String email, List<Community> communities, String role, String password) {
         this.name = name;
         this.email = email;
         this.communities = communities;
+        this.role = role;
+        this.password = password;
     }
-
 
 
 }
