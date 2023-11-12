@@ -44,47 +44,8 @@
             <button type="submit" class="btn btn-primary">Sign Up</button>
             <a href="/" class="btn btn-secondary">Back</a>
           </div>
-
-          <!-- <label for="confirmPassword">Confirm Password:</label><br /> -->
-          <!-- <input -->
-          <!--   type="confirmPassword" -->
-          <!--   name="confirmPassword" -->
-          <!--   id="confirmPassword" -->
-          <!-- /> -->
-
-          <!-- <button -->
-          <!--   type="button" -->
-          <!--   id="submit" -->
-          <!--   class="btn btn-primary m-1" -->
-          <!-- > -->
-          <!--   Sign Up -->
-          <!-- </button> -->
-          <!-- <br /> -->
-          <!-- <a href="bookmarks.html" class="btn btn-primary m-1">Sign Up</a> -->
-          <!-- <a href="../index.html" class="btn">Back</a> -->
         </form>
       </div>
     </div>
   </body>
-
-  <script>
-    function formSubmit() {
-      var accountType = document.getElementById("accountType").value;
-      console.log("Selected account is: " + accountType);
-      switch (accountType) {
-        case "Admin":
-          window.location.href = "index.html"; // Redirect to the Admin page
-          break;
-        case "Moderator":
-          window.location.href = "index.html"; // Redirect to the Moderator page
-          break;
-        case "User":
-          window.location.href = "index.html"; // Redirect to the User page
-          break;
-        default:
-          // Handle any other cases or show an error message
-          alert("Invalid account type selected.");
-      }
-    }
-  </script>
 </html>
