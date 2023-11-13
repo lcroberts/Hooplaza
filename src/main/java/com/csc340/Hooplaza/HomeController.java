@@ -1,11 +1,72 @@
 package com.csc340.Hooplaza;
 
+import com.csc340.Hooplaza.community.Community;
+import com.csc340.Hooplaza.post.Post;
+import com.csc340.Hooplaza.user.User;
+import com.csc340.Hooplaza.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+
+@Controller
 public class HomeController {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping({"", "/home", "/", "hooplaza"})
-    public String home() {
-        return "login/index";
+    public String home(Model model) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("currentUser", name);
+        return "index";
+    }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "user/signup";
+    }
+
+    @PostMapping("/signup/create")
+    public String signupCreate(User user) {
+        user.setCommunities(new ArrayList<Community>());
+        user.setBookmarks(new ArrayList<Post>());
+        user.setRole("USER");
+        userService.saveUser(user);
+        return "redirect:/redirect-user";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "user/login";
+    }
+
+    @GetMapping("/403")
+    public String _403() {
+        return "index";
+    }
+
+    @GetMapping("/redirect-user")
+    public String redirectUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            username = authentication.getName();
+        } else {
+            return "redirect:/";
+        }
+        String role = userService.getUserByEmail(username).getRole();
+        return switch (role) {
+            case "USER" -> "redirect:/user";
+            case "MOD" -> "redirect:/mod";
+            case "ADMIN" -> "redirect:/admin";
+            default -> "redirect:/";
+        };
     }
 }

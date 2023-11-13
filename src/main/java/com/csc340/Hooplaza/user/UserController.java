@@ -2,6 +2,7 @@ package com.csc340.Hooplaza.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/user")
@@ -13,6 +14,11 @@ public class UserController {
     @Autowired
     private UserService service;
 
+
     private String key = System.getenv("MAPS_KEY");
+    @GetMapping({"", "/"})
+    public String menu() {
+        return "user/board";
+    }
 
 }

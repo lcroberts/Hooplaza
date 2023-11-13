@@ -3,8 +3,12 @@ package com.csc340.Hooplaza.user;
 
 import com.csc340.Hooplaza.community.CommunityRepository;
 import com.csc340.Hooplaza.post.PostRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -17,5 +21,75 @@ public class UserService {
 
     @Autowired
     private PostRepository postRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * Get all users
+     *
+     * @return the list of users
+     */
+    public List<User> getAllUsers() {
+        return repo.findAll();
+    }
+
+    /**
+     * Find one user by ID.
+     *
+     * @param id
+     * @return the user
+     */
+    public User getUser(long id) {
+        return repo.getReferenceById(id);
+    }
+
+    /**
+     * Delete user by ID.
+     *
+     * @param id
+     */
+    public void deleteUser(long id) {
+        repo.deleteById(id);
+    }
+
+    /**
+     * Save user entry
+     *
+     * @param user
+     */
+    public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        repo.save(user);
+    }
+
+    /**
+     * Update existing user.
+     *
+     * @param user
+     */
+    public void updateUser(User user) {
+        User existing = repo.getReferenceById(user.getUID());
+        if (user.getEmail() != null) {
+            existing.setEmail(user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            existing.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        if (user.getRole() != null) {
+            existing.setRole(user.getRole());
+        }
+        if (user.getBookmarks() != null) {
+            existing.setBookmarks(user.getBookmarks());
+        }
+        if (user.getCommunities() != null) {
+            existing.setBookmarks(user.getBookmarks());
+        }
+        repo.save(existing);
+    }
+
+    public User getUserByEmail(String email) {
+        return repo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email + "not found"));
+    }
 
 }
