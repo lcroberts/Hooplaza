@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class Post {
     private String content;
     @Transient
     private List<String> tags;
-    private Timestamp postDate; //set value
+    private Date postDate; //set value
 
     public Post(long cID, long uID, String title, String content, List<String> tags) {
         this.cID = cID;
@@ -35,5 +36,10 @@ public class Post {
         this.title = title;
         this.content = content;
         this.tags = tags;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.postDate = new Date();
     }
 }

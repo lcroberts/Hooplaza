@@ -37,7 +37,7 @@ public class UserService {
     /**
      * Find one user by ID.
      *
-     * @param id
+     * @param id user id to find
      * @return the user
      */
     public User getUser(long id) {
@@ -47,7 +47,7 @@ public class UserService {
     /**
      * Delete user by ID.
      *
-     * @param id
+     * @param id user id to delete
      */
     public void deleteUser(long id) {
         repo.deleteById(id);
@@ -56,7 +56,7 @@ public class UserService {
     /**
      * Save user entry
      *
-     * @param user
+     * @param user user to save
      */
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -66,7 +66,7 @@ public class UserService {
     /**
      * Update existing user.
      *
-     * @param user
+     * @param user updated user object
      */
     public void updateUser(User user) {
         User existing = repo.getReferenceById(user.getUID());
