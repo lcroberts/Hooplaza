@@ -12,6 +12,7 @@ public class UserController {
 
     @Autowired
     private UserService service;
-    
+
+    private String key = System.getenv("MAPS_KEY");
 
 }
