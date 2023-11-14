@@ -69,7 +69,7 @@ public class UserService {
      * @param user updated user object
      */
     public void updateUser(User user) {
-        User existing = repo.getReferenceById(user.getUID());
+        User existing = repo.getReferenceById(user.getUserId());
         if (user.getEmail() != null) {
             existing.setEmail(user.getEmail());
         }

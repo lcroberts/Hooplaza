@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 @AllArgsConstructor
@@ -27,15 +27,14 @@ public class Community {
     private String locationId;
     private String description;
     @Transient
-    private List<User> mods; //may need to create Moderator class
+    private ArrayList<User> mods; //may need to create Moderator class
     @Transient
-    private List<User> members;
+    private ArrayList<User> members;
     @Transient
-    private List<Post> posts;
+    private ArrayList<Post> posts;
 
 
-
-    public Community(String name, String locationId, String description, List<User> mods, List<User> members) {
+    public Community(String name, String locationId, String description, ArrayList<User> mods, ArrayList<User> members) {
         this.name = name;
         this.locationId = locationId;
         this.description = description;
