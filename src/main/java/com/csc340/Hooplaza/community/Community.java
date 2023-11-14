@@ -21,10 +21,10 @@ public class Community {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long cID;
+    private long communityId;
 
     private String name;
-    private String locationID;
+    private String locationId;
     private String description;
     @Transient
     private List<User> mods; //may need to create Moderator class
@@ -35,7 +35,11 @@ public class Community {
 
 
 
-    public Community(String name, String locationID, String description, List<User> mods, List<User> members) {
+    public Community(String name, String locationId, String description, List<User> mods, List<User> members) {
         this.name = name;
+        this.locationId = locationId;
+        this.description = description;
+        this.mods = mods;
+        this.members = members;
     }
 }

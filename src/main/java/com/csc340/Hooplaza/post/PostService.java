@@ -24,11 +24,19 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    /*Get all posts from a specific community
-    public List<Post> getAllPosts(String cID) {
-        if (cID != null) {
-            return repo.search(cID);
+    public void deletePost(long postId) {
+        postRepository.deleteById(postId);
+    }
+
+    public Post getPost(long postId) {
+        return postRepository.getReferenceById(postId);
+    }
+
+    /*Get all posts from a specific community (could use for bookmarks with some tweaks)
+    public List<Post> getAllPosts(String communityId) {
+        if (communityId != null) {
+            return postRepository.search(communityId);
         }
-        return repo.findAll();
+        return postRepository.findAll();
     } */
 }

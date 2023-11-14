@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    /*Get all posts from a specific community
-
-    @Query("SELECT p FROM Post p WHERE CONCAT(p.cID, p.type) LIKE %?1%")
-    public List<Product> search(String keyword); */
+    //Get all posts from a specific community
+    @Query("SELECT p FROM Post p WHERE p.communityId = ?1 ORDER BY p.postId DESC")
+    public List<Post> search(String keyword);
 }

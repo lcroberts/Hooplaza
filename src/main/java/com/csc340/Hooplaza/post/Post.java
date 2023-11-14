@@ -19,20 +19,20 @@ import java.util.List;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long pID;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long postId;
 
-    private long cID;
-    private long uID;
+    private long communityId;
+    private long userId;
     private String title;
     private String content;
     @Transient
     private String tag;
     private Date postDate; //set value
 
-    public Post(long cID, long uID, String title, String content, String tag) {
-        this.cID = cID;
-        this.uID = uID;
+    public Post(long communityId, long userId, String title, String content, String tag) {
+        this.communityId = communityId;
+        this.userId = userId;
         this.title = title;
         this.content = content;
         this.tag = tag;
