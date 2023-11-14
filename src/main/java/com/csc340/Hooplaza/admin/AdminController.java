@@ -17,4 +17,9 @@ public class AdminController {
     public String communityRequests() {
         return "admin/community-requests";
     }
+
+    @GetMapping("/communities")
+    public String communities() {
+        return "admin/communities";
+    }
 }
