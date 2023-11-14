@@ -1,480 +1,470 @@
 <!doctype html>
 <html
-  lang="en"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Board</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
     />
     <style>
-      body {
-        padding-top: 67px;
-      }
-      .offcanvas-footer {
-        padding: 0.5rem 0.5rem;
-        border-top: 1px solid #dee2e6;
-      }
-      #post-container {
-        max-height: calc(100vh - 125px);
-        overflow-y: auto;
-        .card-text {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 6;
-          -webkit-box-orient: vertical;
+        body {
+            padding-top: 67px;
         }
-        .square-image {
-          position: relative;
-          overflow: hidden;
-          padding-bottom: 100%;
-          background-color: black;
+
+        .offcanvas-footer {
+            padding: 0.5rem 0.5rem;
+            border-top: 1px solid #dee2e6;
         }
-        .square-image img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+
+        #post-container {
+            max-height: calc(100vh - 125px);
+            overflow-y: auto;
+
+            .card-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 6;
+                -webkit-box-orient: vertical;
+            }
+
+            .square-image {
+                position: relative;
+                overflow: hidden;
+                padding-bottom: 100%;
+                background-color: black;
+            }
+
+            .square-image img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .floating-button {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                bottom: 40rem;
+                right: 40rem;
+                background-color: transparent !important;
+                color: #fff;
+                border-radius: 50px;
+                align-items: center;
+                align-self: flex-end;
+                box-shadow: 2px 2px 3px #999;
+                z-index: 2000;
+            }
         }
-        .floating-button {
-          position: absolute;
-          width: 40px;
-          height: 40px;
-          bottom: 40rem;
-          right: 40rem;
-          background-color: transparent !important;
-          color: #fff;
-          border-radius: 50px;
-          align-items: center;
-          align-self: flex-end;
-          box-shadow: 2px 2px 3px #999;
-          z-index: 2000;
-        }
-      }
     </style>
-  </head>
+</head>
 
-  <body>
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-    />
-    <!-- Bootstrap Font Icon CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <nav
-      class="navbar fixed-top navbar-expand bg-dark border-bottom"
-      data-bs-theme="dark"
-    >
-      <div class="container-fluid">
+<body>
+<!-- Bootstrap CSS -->
+<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+/>
+<!-- Bootstrap Font Icon CSS -->
+<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+/>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+<nav
+        class="navbar fixed-top navbar-expand bg-dark border-bottom"
+        data-bs-theme="dark"
+>
+    <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                data-bs-toggle="offcanvas"
-                href="#sidebar"
-                aria-controls="sidebar"
-                ><span class="navbar-toggler-icon"></span
-              ></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="bookmarks.html"
-                >Bookmarks</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Board</a>
-            </li>
-          </ul>
-          <form class="form-inline" th:action="@{/logout}" method="post">
-            <button class="btn btn-secondary me-2" type="submit">
-              Sign Out
-            </button>
-          </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a
+                            class="nav-link active"
+                            data-bs-toggle="offcanvas"
+                            href="#sidebar"
+                            aria-controls="sidebar"
+                    ><span class="navbar-toggler-icon"></span
+                    ></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="bookmarks.html"
+                    >Bookmarks</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Board</a>
+                </li>
+            </ul>
+            <form class="form-inline" th:action="@{/logout}" method="post">
+                <button class="btn btn-secondary me-2" type="submit">
+                    Sign Out
+                </button>
+            </form>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- requestCommunity modal -->
-    <div class="modal fade" id="requestCommunity" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
+<!-- requestCommunity modal -->
+<div class="modal fade" id="requestCommunity" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Request Community</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row justify-content-between">
-                <div class="col-lg-12">
-                  <img
-                    src="https://assets.urbanturf.com/dc/images/blog/2018/08/google-map.jpg"
-                    alt="placeholder image for interactive map"
-                    style="
+            <div class="modal-header">
+                <h5 class="modal-title">Request Community</h5>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-12">
+                            <img
+                                    src="https://assets.urbanturf.com/dc/images/blog/2018/08/google-map.jpg"
+                                    alt="placeholder image for interactive map"
+                                    style="
                       border: 2px solid black;
                       max-width: 100%;
                       margin-bottom: 10px;
                     "
-                  />
+                            />
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-10">
+                            <input
+                                    type="text"
+                                    id="request"
+                                    placeholder="Where is your community?"
+                                    style="width: 100%"
+                            />
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary btn-sm">
+                                Go
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row justify-content-center">
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    id="request"
-                    placeholder="Where is your community?"
-                    style="width: 100%"
-                  />
-                </div>
-                <div class="col-sm-2">
-                  <button type="button" class="btn btn-primary btn-sm">
-                    Go
-                  </button>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- Post Modal -->
+<!-- Post Modal -->
+<form action="/post/create" method="post">
     <div class="modal fade" id="newPost" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">New Post</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row justify-content-center">
-                <div class="col-sm-10 text-wrap d-flex">
-                  <textarea
-                    class="form-control"
-                    id="postText"
-                    placeholder="What's new with you?"
-                  ></textarea>
-                </div>
-                <div class="col-sm-2 d-flex align-items-center">
-                  <button type="button" class="btn btn-primary btn-sm">
-                    Post
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="container-fluid">
-              <div class="row justify-content-start">
-                <div class="col-sm-2">
-                  <label
-                    class="btn btn-primary btn-sm btn-floating rounded-circle"
-                  >
-                    <span class="bi bi-paperclip"></span>
-                    <input type="file" hidden />
-                  </label>
-                </div>
-                <div class="col-sm-4">
-                  <div class="dropdown">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Post</h5>
                     <button
-                      class="btn btn-light btn-sm dropdown-toggle"
-                      type="button"
-                      id="addTag"
-                      data-bs-toggle="dropdown"
-                      data-bs-auto-close="outside"
-                      aria-expanded="false"
-                    >
-                      Add tag
-                      <span class="caret"></span>
-                    </button>
-                    <ul
-                      class="dropdown-menu"
-                      id="tagMenu"
-                      aria-labelledby="addTag"
-                    >
-                      <li>
-                        <a class="dropdown-item" href="#"
-                          ><span class="badge rounded-pill bg-warning"
-                            >Club</span
-                          ></a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#"
-                          ><span class="badge rounded-pill bg-danger"
-                            >Project</span
-                          ></a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#"
-                          ><span class="badge rounded-pill bg-success"
-                            >Event</span
-                          ></a
-                        >
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider" />
-                      </li>
-                      <li><a class="dropdown-item" href="#">No tag</a></li>
-                    </ul>
-                  </div>
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row justify-content=left">
+                            <div class="col-sm-10 text-wrap d-flex">
+                                <div class="form-group">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            name="title"
+                                            id="title"
+                                            placeholder="Make a flashy title!"
+                                            required>
+                                    </input>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-10 text-wrap d-flex">
+                                    <div class="form-group">
+                                        <textarea
+                                                class="form-control"
+                                                name="content"
+                                                id="content"
+                                                placeholder="What's new with you?"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 d-flex align-items-center">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        Post
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="container-fluid">
+                            <div class="row justify-content-start">
+                                <div class="col-sm-2">
+                                    <label
+                                            class="btn btn-primary btn-sm btn-floating rounded-circle"
+                                    >
+                                        <span class="bi bi-paperclip"></span>
+                                        <input type="file" hidden/>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="btn btn-light btn-sm dropdown-toggle" id="addTag" name="addTag">
+                                        <option class="dropdown-item badge rounded-pill bg-warning" value="Club">Club</option>
+                                        <option class="dropdown-item badge rounded-pill bg-danger" value="Project">Project</option>
+                                        <option class="dropdown-item badge rounded-pill bg-success" value="Event">
+                                            Event</option>
+                                        <hr class="dropdown-divider"/>
+                                        <option class="dropdown-item" value="" selected="selected">No tag</option>
+                                    </select>
 
-    <!-- Offcanvas -->
-    <div
-      class="offcanvas offcanvas-start text-bg-dark"
-      tabindex="-1"
-      id="sidebar"
-      aria-labelledby="sidebarLabel"
-      data-bs-theme="dark"
-    >
-      <div class="offcanvas-header">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Offcanvas -->
+<div
+        class="offcanvas offcanvas-start text-bg-dark"
+        tabindex="-1"
+        id="sidebar"
+        aria-labelledby="sidebarLabel"
+        data-bs-theme="dark"
+>
+    <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
         <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
         ></button>
-      </div>
-      <div class="offcanvas-body">
+    </div>
+    <div class="offcanvas-body">
         <div><h6>Your Communities</h6></div>
         <nav>
-          <div class="d-grid gap-2">
-            <button
-              type="button"
-              class="btn btn-dark active text-start"
-              aria-current="page"
-            >
-              Community 1
-            </button>
-            <button type="button" class="btn btn-dark text-start">
-              Community 2
-            </button>
-            <button type="button" class="btn btn-dark text-start">
-              Community 3
-            </button>
-          </div>
+            <div class="d-grid gap-2">
+                <button
+                        type="button"
+                        class="btn btn-dark active text-start"
+                        aria-current="page"
+                >
+                    Community 1
+                </button>
+                <button type="button" class="btn btn-dark text-start">
+                    Community 2
+                </button>
+                <button type="button" class="btn btn-dark text-start">
+                    Community 3
+                </button>
+            </div>
         </nav>
-      </div>
-      <div class="offcanvas-footer">
+    </div>
+    <div class="offcanvas-footer">
         <p style="font-size: 12px">
-          Don't see your community?
-          <button
-            type="button"
-            class="btn btn-sm btn-link"
-            data-bs-toggle="modal"
-            data-bs-target="#requestCommunity"
-          >
-            Request one
-          </button>
-        </p>
-      </div>
-    </div>
-
-    <!-- Post Button -->
-    <div class="container m-1" id="floating-button">
-      <div
-        class="btn btn-primary btn-lg btn-floating rounded-circle"
-        data-bs-toggle="modal"
-        data-bs-target="#newPost"
-      >
-        <span class="bi bi-plus-lg"></span>
-      </div>
-    </div>
-
-    <div id="post-container">
-      <div class="container">
-        <div id="card-row">
-          <!-- The original card -->
-
-          <div class="card mb-3 border-dark">
-            <div class="row g-0">
-              <div
-                class="col-5 col-md-4 col-lg-3"
-                data-bs-toggle="modal"
-                data-bs-target="#myModal"
-              >
-                <div class="square-image">
-                  <img
-                    src="https://thumbs.dreamstime.com/b/constructing-tall-apartment-building-25983938.jpg"
-                    alt="Image goes here"
-                    style="border: 4px solid black; max-width: 40vw"
-                  />
-                </div>
-              </div>
-              <div
-                class="col-7 col-md-8 col-lg-9"
-                data-bs-toggle="modal"
-                data-bs-target="#myModal"
-              >
-                <div class="card-body">
-                  <h5 class="card-title">Post 1</h5>
-                  <p class="card-text">
-                    This is the content of post 1. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi
-                    ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id
-                    est laborum.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="row justify-content-between">
-                <div class="col-5 col-md-4 col-lg-3">
-                  <div class="row justify-content-between">
-                    <div class="col">
-                      <small class="text-muted">Members: 15</small>
-                    </div>
-                    <div class="col text-end">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-7 col-md-8 col-lg-9">
-                  <div class="row justify-content-between">
-                    <div class="col">
-                      <span class="badge rounded-pill bg-warning">Club</span>
-                      <span class="badge rounded-pill bg-danger">Project</span>
-                      <span class="badge rounded-pill bg-success">Event</span>
-                    </div>
-                    <div class="col text-end">
-                      <button type="button" class="btn btn-primary">
-                        Bookmark
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal fade"
-      id="myModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div
-        class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down"
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Post Title</h5>
+            Don't see your community?
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body" style="min-height: 500px">
-            <div class="row">
-              <div class="col-md-5">
-                <div class="square-image">
-                  <img
-                    id="modalImage"
-                    src=""
-                    alt="Image goes here"
-                    style="border: 4px solid black; max-width: 100%"
-                  />
-                </div>
-              </div>
-              <div class="col-md-7">
-                <p id="modalBodyText"></p>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
+                    type="button"
+                    class="btn btn-sm btn-link"
+                    data-bs-toggle="modal"
+                    data-bs-target="#requestCommunity"
             >
-              Close
+                Request one
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
+        </p>
     </div>
+</div>
 
-    <script>
-      const cardRow = document.getElementById("card-row");
-      const originalCard = cardRow.querySelector(".card");
-      const modalTitle = document.querySelector(".modal-title");
-      const modalBodyText = document.querySelector("#modalBodyText");
-      const modalImage = document.querySelector("#modalImage");
+<!-- Post Button -->
+<div class="container m-1" id="floating-button">
+    <div
+            class="btn btn-primary btn-lg btn-floating rounded-circle"
+            data-bs-toggle="modal"
+            data-bs-target="#newPost"
+    >
+        <span class="bi bi-plus-lg"></span>
+    </div>
+</div>
 
-      // Function to update modal content
-      function updateModalContent(title, body, imageUrl) {
+<div id="post-container">
+    <div class="container">
+        <div id="card-row">
+            <!-- The original card -->
+
+            <div class="card mb-3 border-dark">
+                <div class="row g-0">
+                    <div
+                            class="col-5 col-md-4 col-lg-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModal"
+                    >
+                        <div class="square-image">
+                            <img
+                                    src="https://thumbs.dreamstime.com/b/constructing-tall-apartment-building-25983938.jpg"
+                                    alt="Image goes here"
+                                    style="border: 4px solid black; max-width: 40vw"
+                            />
+                        </div>
+                    </div>
+                    <div
+                            class="col-7 col-md-8 col-lg-9"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModal"
+                    >
+                        <div class="card-body">
+                            <h5 class="card-title">Post 1</h5>
+                            <p class="card-text">
+                                This is the content of post 1. Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                reprehenderit in voluptate velit esse cillum dolore eu
+                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id
+                                est laborum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row justify-content-between">
+                        <div class="col-5 col-md-4 col-lg-3">
+                            <div class="row justify-content-between">
+                                <div class="col">
+                                    <small class="text-muted">Members: 15</small>
+                                </div>
+                                <div class="col text-end">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8 col-lg-9">
+                            <div class="row justify-content-between">
+                                <div class="col">
+                                    <span class="badge rounded-pill bg-warning">Club</span>
+                                    <span class="badge rounded-pill bg-danger">Project</span>
+                                    <span class="badge rounded-pill bg-success">Event</span>
+                                </div>
+                                <div class="col text-end">
+                                    <button type="button" class="btn btn-primary">
+                                        Bookmark
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+>
+    <div
+            class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down"
+    >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Post Title</h5>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body" style="min-height: 500px">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="square-image">
+                            <img
+                                    id="modalImage"
+                                    src=""
+                                    alt="Image goes here"
+                                    style="border: 4px solid black; max-width: 100%"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <p id="modalBodyText"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const cardRow = document.getElementById("card-row");
+    const originalCard = cardRow.querySelector(".card");
+    const modalTitle = document.querySelector(".modal-title");
+    const modalBodyText = document.querySelector("#modalBodyText");
+    const modalImage = document.querySelector("#modalImage");
+
+    // Function to update modal content
+    function updateModalContent(title, body, imageUrl) {
         modalTitle.textContent = title;
         modalBodyText.textContent = body;
         modalImage.src = imageUrl;
-      }
+    }
 
-      // Add a click event listener to the original card
-      originalCard.addEventListener("click", () => {
+    // Add a click event listener to the original card
+    originalCard.addEventListener("click", () => {
         const cardTitle = originalCard.querySelector(".card-title");
         const cardText = originalCard.querySelector(".card-text");
         const cardImage = originalCard.querySelector("img");
 
         updateModalContent(
-          cardTitle.textContent,
-          cardText.textContent,
-          cardImage.src,
+            cardTitle.textContent,
+            cardText.textContent,
+            cardImage.src,
         );
-      });
+    });
 
-      for (let i = 2; i <= 10; i++) {
+    for (let i = 2; i <= 10; i++) {
         const newCard = originalCard.cloneNode(true);
         const cardTitle = newCard.querySelector(".card-title");
         const cardText = newCard.querySelector(".card-text");
@@ -485,15 +475,15 @@
 
         // Add a click event listener to each new card
         newCard.addEventListener("click", () => {
-          updateModalContent(
-            cardTitle.textContent,
-            cardText.textContent,
-            cardImage.src,
-          );
+            updateModalContent(
+                cardTitle.textContent,
+                cardText.textContent,
+                cardImage.src,
+            );
         });
 
         cardRow.appendChild(newCard);
-      }
-    </script>
-  </body>
+    }
+</script>
+</body>
 </html>

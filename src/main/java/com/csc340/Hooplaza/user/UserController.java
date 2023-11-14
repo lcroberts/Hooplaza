@@ -15,10 +15,12 @@ public class UserController {
     private UserService service;
 
 
-    private String key = System.getenv("MAPS_KEY");
+    //private String key = System.getenv("MAPS_KEY");
+
     @GetMapping({"", "/"})
     public String menu() {
         return "user/board";
     }
+
 
 }

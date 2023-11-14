@@ -27,15 +27,15 @@ public class Post {
     private String title;
     private String content;
     @Transient
-    private List<String> tags;
+    private String tag;
     private Date postDate; //set value
 
-    public Post(long cID, long uID, String title, String content, List<String> tags) {
+    public Post(long cID, long uID, String title, String content, String tag) {
         this.cID = cID;
         this.uID = uID;
         this.title = title;
         this.content = content;
-        this.tags = tags;
+        this.tag = tag;
     }
 
     @PrePersist
