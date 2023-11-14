@@ -17,7 +17,7 @@ public class UserController {
 
     //private String key = System.getenv("MAPS_KEY");
 
-    @GetMapping({"", "/"})
+    @GetMapping({"", "/", "/board"})
     public String menu() {
         return "user/board";
     }
