@@ -1,9 +1,14 @@
 package com.csc340.Hooplaza.post;
 
+import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+
+import java.util.List;
 
 @RequestMapping("/post")
 @Controller
@@ -15,7 +20,14 @@ public class PostController {
     @PostMapping("/create")
     public String createPost(Post post) {
         service.savePost(post);
-        return ("user/board");
+        return "redirect:/post/all";
+    }
+
+    @GetMapping("/all")
+    public String getAllPosts(Model model) {
+        List<Post> posts = service.getAllPosts();
+        model.addAttribute("postList", posts);
+        return "user/board";
     }
 
 }

@@ -317,13 +317,9 @@
         <div id="card-row">
             <!-- The original card -->
 
-            <div class="card mb-3 border-dark">
+            <div th:each="post : ${postList}" class="card mb-3 border-dark">
                 <div class="row g-0">
-                    <div
-                            class="col-5 col-md-4 col-lg-3"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModal"
-                    >
+                    <div class="col-5 col-md-4 col-lg-3" data-bs-toggle="modal" data-bs-target="#myModal">
                         <div class="square-image">
                             <img
                                     src="https://thumbs.dreamstime.com/b/constructing-tall-apartment-building-25983938.jpg"
@@ -338,18 +334,8 @@
                             data-bs-target="#myModal"
                     >
                         <div class="card-body">
-                            <h5 class="card-title">Post 1</h5>
-                            <p class="card-text">
-                                This is the content of post 1. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                reprehenderit in voluptate velit esse cillum dolore eu
-                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id
-                                est laborum.
-                            </p>
+                            <h5 class="card-title" th:text="${post.title}" ></h5>
+                            <p class="card-text" th:text=" ${post.content}"></p>
                         </div>
                     </div>
                 </div>
@@ -368,9 +354,7 @@
                         <div class="col-7 col-md-8 col-lg-9">
                             <div class="row justify-content-between">
                                 <div class="col">
-                                    <span class="badge rounded-pill bg-warning">Club</span>
-                                    <span class="badge rounded-pill bg-danger">Project</span>
-                                    <span class="badge rounded-pill bg-success">Event</span>
+                                    <p th:text="${post.tag}" class="badge rounded-pill bg-secondary"></p>
                                 </div>
                                 <div class="col text-end">
                                     <button type="button" class="btn btn-primary">
@@ -437,53 +421,53 @@
     </div>
 </div>
 
-<script>
-    const cardRow = document.getElementById("card-row");
-    const originalCard = cardRow.querySelector(".card");
-    const modalTitle = document.querySelector(".modal-title");
-    const modalBodyText = document.querySelector("#modalBodyText");
-    const modalImage = document.querySelector("#modalImage");
+<!--<script>-->
+<!--    const cardRow = document.getElementById("card-row");-->
+<!--    const originalCard = cardRow.querySelector(".card");-->
+<!--    const modalTitle = document.querySelector(".modal-title");-->
+<!--    const modalBodyText = document.querySelector("#modalBodyText");-->
+<!--    const modalImage = document.querySelector("#modalImage");-->
 
-    // Function to update modal content
-    function updateModalContent(title, body, imageUrl) {
-        modalTitle.textContent = title;
-        modalBodyText.textContent = body;
-        modalImage.src = imageUrl;
-    }
+<!--    // Function to update modal content-->
+<!--    function updateModalContent(title, body, imageUrl) {-->
+<!--        modalTitle.textContent = title;-->
+<!--        modalBodyText.textContent = body;-->
+<!--        modalImage.src = imageUrl;-->
+<!--    }-->
 
-    // Add a click event listener to the original card
-    originalCard.addEventListener("click", () => {
-        const cardTitle = originalCard.querySelector(".card-title");
-        const cardText = originalCard.querySelector(".card-text");
-        const cardImage = originalCard.querySelector("img");
+<!--    // Add a click event listener to the original card-->
+<!--    originalCard.addEventListener("click", () => {-->
+<!--        const cardTitle = originalCard.querySelector(".card-title");-->
+<!--        const cardText = originalCard.querySelector(".card-text");-->
+<!--        const cardImage = originalCard.querySelector("img");-->
 
-        updateModalContent(
-            cardTitle.textContent,
-            cardText.textContent,
-            cardImage.src,
-        );
-    });
+<!--        updateModalContent(-->
+<!--            cardTitle.textContent,-->
+<!--            cardText.textContent,-->
+<!--            cardImage.src,-->
+<!--        );-->
+<!--    });-->
 
-    for (let i = 2; i <= 10; i++) {
-        const newCard = originalCard.cloneNode(true);
-        const cardTitle = newCard.querySelector(".card-title");
-        const cardText = newCard.querySelector(".card-text");
-        const cardImage = newCard.querySelector("img");
+<!--    for (let i = 2; i <= 10; i++) {-->
+<!--        const newCard = originalCard.cloneNode(true);-->
+<!--        const cardTitle = newCard.querySelector(".card-title");-->
+<!--        const cardText = newCard.querySelector(".card-text");-->
+<!--        const cardImage = newCard.querySelector("img");-->
 
-        cardTitle.textContent = `Post ${i}`;
-        cardText.textContent = `This is the content of post ${i} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+<!--        cardTitle.textContent = `Post ${i}`;-->
+<!--        cardText.textContent = `This is the content of post ${i} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;-->
 
-        // Add a click event listener to each new card
-        newCard.addEventListener("click", () => {
-            updateModalContent(
-                cardTitle.textContent,
-                cardText.textContent,
-                cardImage.src,
-            );
-        });
+<!--        // Add a click event listener to each new card-->
+<!--        newCard.addEventListener("click", () => {-->
+<!--            updateModalContent(-->
+<!--                cardTitle.textContent,-->
+<!--                cardText.textContent,-->
+<!--                cardImage.src,-->
+<!--            );-->
+<!--        });-->
 
-        cardRow.appendChild(newCard);
-    }
-</script>
+<!--        cardRow.appendChild(newCard);-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>
