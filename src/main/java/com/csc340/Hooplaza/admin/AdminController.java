@@ -65,6 +65,12 @@ public class AdminController {
         return "redirect:/admin/requests";
     }
 
+    @GetMapping("/requests/deny/id={requestId}")
+    public String denyRequest(@PathVariable long requestId, Model model) {
+        commRequestService.deleteById(requestId);
+        return "redirect:/admin/requests";
+    }
+
     @GetMapping("/communities")
     public String communities() {
         return "admin/communities";

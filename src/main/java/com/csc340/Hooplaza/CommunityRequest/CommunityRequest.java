@@ -6,17 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
 @Setter
-@Table (name = "communityRequest")
+@Table(name = "communityRequest")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class CommunityRequest {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long requestId;

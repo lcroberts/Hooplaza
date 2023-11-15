@@ -167,22 +167,33 @@
               <p class="card-text" th:text="${request.body}"></p>
             </div>
             <div class="card-footer">
-              <button
-                type="button"
+              <!-- <button -->
+              <!--   type="button" -->
+              <!--   class="btn btn-primary" -->
+              <!--   data-bs-toggle="modal" -->
+              <!--   data-bs-target="#confirmationModal" -->
+              <!-- > -->
+              <!--   Approve -->
+              <!-- </button> -->
+              <a
+                th:href="@{/admin/requests/accept/id={id}(id=${request.requestId})}"
                 class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmationModal"
+                >Approve</a
               >
-                Approve
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmationModal"
+              <!-- <button -->
+              <!--   type="button" -->
+              <!--   class="btn btn-primary" -->
+              <!--   data-bs-toggle="modal" -->
+              <!--   data-bs-target="#confirmationModal" -->
+              <!-- > -->
+              <!--   Deny -->
+              <!-- </button> -->
+
+              <a
+                th:href="@{/admin/requests/deny/id={id}(id=${request.requestId})}"
+                class="btn btn-Secondary"
+                >Deny</a
               >
-                Deny
-              </button>
             </div>
           </div>
         </div>
