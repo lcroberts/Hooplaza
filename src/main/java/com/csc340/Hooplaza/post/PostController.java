@@ -21,7 +21,7 @@ public class PostController {
     @PostMapping("/create")
     public String createPost(Post post) {
         service.savePost(post);
-        return "redirect:/post/all";
+        return "redirect:/user";
     }
 
     @GetMapping("/all")
