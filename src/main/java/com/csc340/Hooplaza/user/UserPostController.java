@@ -1,19 +1,18 @@
-package com.csc340.Hooplaza.post;
+package com.csc340.Hooplaza.user;
 
-import org.springframework.ui.Model;
+import com.csc340.Hooplaza.post.Post;
+import com.csc340.Hooplaza.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-import java.util.List;
-
-@RequestMapping("/post")
+@RequestMapping("/user/post")
 @Controller
-public class PostController {
+public class UserPostController {
 
     @Autowired
     private PostService service;
@@ -22,13 +21,6 @@ public class PostController {
     public String createPost(Post post) {
         service.savePost(post);
         return "redirect:/user";
-    }
-
-    @GetMapping("/all")
-    public String getAllPosts(Model model) {
-        List<Post> posts = service.getAllPosts();
-        model.addAttribute("postList", posts);
-        return "user/board";
     }
 
     @GetMapping("/delete/id={productId}")
