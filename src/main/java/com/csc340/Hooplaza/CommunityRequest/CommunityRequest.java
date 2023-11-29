@@ -23,6 +23,7 @@ public class CommunityRequest {
     private String locationId;
     private String body;
     private long userId; // Id of requester
+    private String userName;
 
     public CommunityRequest(String name, String locationId, String body, long userId) {
         this.name = name;

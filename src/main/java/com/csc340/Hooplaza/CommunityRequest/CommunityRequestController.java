@@ -25,6 +25,8 @@ public class CommunityRequestController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(authentication.getName());
         request.setUserId(user.getUserId());
+        request.setUserName(user.getName());
+
         service.saveCommunityRequest(request);
         return ("redirect:/user/board");
     }
