@@ -55,13 +55,13 @@ public class HomeController {
     @GetMapping("/redirect-user")
     public String redirectUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = "";
+        String email = "";
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            username = authentication.getName();
+            email = authentication.getName();
         } else {
             return "redirect:/";
         }
-        String role = userService.getUserByEmail(username).getRole();
+        String role = userService.getUserByEmail(email).getRole();
         return switch (role) {
             case "USER" -> "redirect:/user";
             case "MOD" -> "redirect:/mod";
