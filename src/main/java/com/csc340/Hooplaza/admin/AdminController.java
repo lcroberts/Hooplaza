@@ -75,4 +75,10 @@ public class AdminController {
     public String communities() {
         return "admin/communities";
     }
+
+    @GetMapping("/user/details/id={userId}")
+    public String userDetails(@PathVariable long userId, Model model) {
+        model.addAttribute("user", userService.getUser(userId));
+        return "admin/user-details.html";
+    }
 }
