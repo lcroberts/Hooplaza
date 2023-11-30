@@ -55,8 +55,13 @@ public class HomeController {
         } else {
             return "redirect:/";
         }
-        String role = userService.getUserByEmail(email).getRole();
-        return switch (role) {
+        User user = userService.getUserByEmail(email);
+
+        if (!user.isActive()) {
+            return "banned";
+        }
+
+        return switch (user.getRole()) {
             case "USER" -> "redirect:/user";
             case "MOD" -> "redirect:/mod";
             case "ADMIN" -> "redirect:/admin";

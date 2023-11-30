@@ -81,6 +81,28 @@ public class AdminController {
     @GetMapping("/user/details/id={userId}")
     public String userDetails(@PathVariable long userId, Model model) {
         model.addAttribute("user", userService.getUser(userId));
+        if (userService.getUser(userId).isActive()) {
+            model.addAttribute("userStatus", "This user is active");
+        } else {
+            model.addAttribute("userStatus", "This user has been suspended");
+        }
+
         return "admin/user-details.html";
+    }
+
+    @GetMapping("/user/ban/id={userId}")
+    public String banUser(@PathVariable long userId, Model model) {
+        User user = userService.getUser(userId);
+        user.setActive(false);
+        userService.updateUser(user);
+        return "redirect:/admin/user/details/id=" + userId;
+    }
+
+    @GetMapping("/user/unban/id={userId}")
+    public String unbanUser(@PathVariable long userId, Model model) {
+        User user = userService.getUser(userId);
+        user.setActive(true);
+        userService.updateUser(user);
+        return "redirect:/admin/user/details/id=" + userId;
     }
 }

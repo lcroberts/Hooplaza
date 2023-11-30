@@ -85,6 +85,9 @@ public class UserService {
         if (user.getCommunities() != null) {
             existing.setBookmarks(user.getBookmarks());
         }
+
+        existing.setActive(user.isActive());
+
         repo.save(existing);
     }
 

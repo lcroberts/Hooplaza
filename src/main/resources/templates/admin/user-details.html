@@ -55,43 +55,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <div
-      class="modal text-light"
-      tabindex="-1"
-      id="userDetailsModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <h2>User Details Template</h2>
-            <hr />
-            <p>
-              Email: example@example.com <br />
-              Name: John Doe
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Ban User
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <nav
       class="navbar fixed-top navbar-expand bg-dark border-bottom"
       data-bs-theme="dark"
@@ -120,19 +83,22 @@
       </div>
     </nav>
 
-    <div class="container-fluid mt-5">
-      <h2 style="text-align: center">Name: <a th:text="${user.name}"></h2>
-      <h5
-        class="text-body-secondary"
-        style="text-align: center"
-      >User Id: <a th:text="${user.userId}"></a></h5>
-      <h5
-        class="text-body-secondary"
-        style="text-align: center"
-        
-      >User Email: <a th:text="${user.email}"></a></h5>
+    <div style="text-align: center" class="container-fluid mt-5">
+      <h2>Name: <a th:text="${user.name}"></a></h2>
+      <h5 class="text-body-secondary">
+        User Id: <a th:text="${user.userId}"></a>
+      </h5>
+      <h5 class="text-body-secondary" style="text-align: center">
+        User Email: <a th:text="${user.email}"></a>
+      </h5>
+      <h5 class="text-body-secondary" th:text="${userStatus}"></h5>
       <div class="mx-auto" style="width: 10em">
-        <a href="#" class="btn btn-secondary mx-auto" style="width: 10em"
+        <a th:href="@{/admin/user/unban/id={id}(id=${user.userId})}" class="btn btn-primary mx-auto" style="width: 10em"
+          >Unban User</a
+        >
+      </div>
+      <div class="mx-auto mt-3" style="width: 10em">
+        <a th:href="@{/admin/user/ban/id={id}(id=${user.userId})}" class="btn btn-secondary mx-auto" style="width: 10em"
           >Ban User</a
         >
       </div>
