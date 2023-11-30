@@ -1,13 +1,14 @@
 package com.csc340.Hooplaza.post;
 
-import com.csc340.Hooplaza.community.Community;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @Entity
@@ -21,15 +22,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long postId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "communityId")
-    private Community postCommunity;
-
     private long communityId;
     private long userId;
     private String title;
     private String content;
-
+    @Transient
     private String tag;
     private Date postDate; //set value
 
