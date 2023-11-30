@@ -41,7 +41,8 @@ public class Community {
             mappedBy = "communities"
     )
     private List<User> members = new ArrayList<>();
-    @Transient
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 
 
