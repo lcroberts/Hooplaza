@@ -4,7 +4,6 @@ import com.csc340.Hooplaza.CommunityRequest.CommunityRequest;
 import com.csc340.Hooplaza.CommunityRequest.CommunityRequestService;
 import com.csc340.Hooplaza.community.Community;
 import com.csc340.Hooplaza.community.CommunityService;
-import com.csc340.Hooplaza.post.Post;
 import com.csc340.Hooplaza.user.User;
 import com.csc340.Hooplaza.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 
 @RequestMapping("/admin")
 @Controller
@@ -49,15 +46,10 @@ public class AdminController {
         community.setName(request.getName());
         community.setLocationId(request.getLocationId());
         community.setDescription("");
-        community.setPosts(new ArrayList<Post>());
 
-        ArrayList<User> mod = new ArrayList<>();
-        mod.add(requester);
-        community.setMods(mod);
-
-        ArrayList<User> users = new ArrayList<>();
-        users.add(requester);
-        community.setMembers(users);
+//        community.getMods().add(requester);
+        requester.getModeratorOf().add(community);
+        requester.getCommunities().add(community);
 
         commService.saveCommunity(community);
         commRequestService.deleteById(requestId);
@@ -72,8 +64,18 @@ public class AdminController {
     }
 
     @GetMapping("/communities")
-    public String communities() {
+    public String communities(Model model) {
+        model.addAttribute("communities", commService.getAllCommunities());
         return "admin/communities";
+    }
+
+    @GetMapping("/community/details/id={communityId}")
+    public String communityDetails(@PathVariable long communityId, Model model) {
+        Community community = commService.getById(communityId);
+        model.addAttribute("community", community);
+        model.addAttribute("mods", community.getMods());
+        model.addAttribute("members", community.getMembers());
+        return "admin/community-details";
     }
 
     @GetMapping("/user/details/id={userId}")
