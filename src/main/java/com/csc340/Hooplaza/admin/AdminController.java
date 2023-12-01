@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
@@ -73,8 +75,13 @@ public class AdminController {
     public String communityDetails(@PathVariable long communityId, Model model) {
         Community community = commService.getById(communityId);
         model.addAttribute("community", community);
-        model.addAttribute("mods", community.getMods());
-        model.addAttribute("members", community.getMembers());
+        List<User> mods = community.getMods();
+        model.addAttribute("mods", mods);
+        List<User> members = community.getMembers();
+        for (User user : mods) {
+            members.remove(user);
+        }
+        model.addAttribute("members", members);
         return "admin/community-details";
     }
 
@@ -104,5 +111,21 @@ public class AdminController {
         user.setActive(true);
         userService.updateUser(user);
         return "redirect:/admin/user/details/id=" + userId;
+    }
+
+    @GetMapping("/mod/add/id={id}/community/commId={commId}")
+    public String addModerator(@PathVariable long id, @PathVariable long commId, Model model) {
+        User user = userService.getUser(id);
+        user.getModeratorOf().add(commService.getById(id));
+        userService.updateUser(user);
+        return "redirect:/admin/community/details/id=" + commId;
+    }
+
+    @GetMapping("/mod/remove/id={id}/community/commId={commId}")
+    public String removeModerator(@PathVariable long id, @PathVariable long commId, Model model) {
+        User user = userService.getUser(id);
+        user.getModeratorOf().remove(commService.getById(commId));
+        userService.updateUser(user);
+        return "redirect:/admin/community/details/id=" + commId;
     }
 }

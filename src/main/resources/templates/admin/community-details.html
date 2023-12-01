@@ -28,43 +28,6 @@
     <div
       class="modal text-light"
       tabindex="-1"
-      id="userDetailsModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <h2>User Details Template</h2>
-            <hr />
-            <p>
-              Email: example@example.com <br />
-              Name: John Doe
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Ban User
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal text-light"
-      tabindex="-1"
       id="modModal"
       data-bs-theme="dark"
     >
@@ -82,53 +45,22 @@
                 Search
               </button>
             </form>
-            <ul class="list-group mt-1">
+            <ul class="list-group mt-1" th:each="user : ${members}">
               <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 1</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
+                <div class="ms-2" th:text="${user.name}"></div>
+                <!-- <button -->
+                <!--   type="button" -->
+                <!--   class="btn btn-secondary" -->
+                <!--   data-bs-toggle="modal" -->
+                <!--   data-bs-target="#confirmationModal" -->
+                <!-- > -->
+                <!--   Add Moderator -->
+                <!-- </button> -->
+                <a
+                  class = "btn btn-secondary"
+                  th:href="@{/admin/mod/add/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
+                  >Add Moderator</a
                 >
-                  Add Moderator
-                </button>
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 2</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Add Moderator
-                </button>
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 3</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Add Moderator
-                </button>
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 4</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Add Moderator
-                </button>
               </li>
             </ul>
           </div>
@@ -218,7 +150,12 @@
               ></a>
             </div>
             <div class="me-2">
-              <a href="#" class="btn btn-primary">Remove Moderator</a>
+              <!-- <a href="#" class="btn btn-primary">Remove Moderator</a> -->
+              <a
+                class="btn btn-primary"
+                th:href="@{/admin/mod/remove/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
+                >Remove Moderator</a
+              >
             </div>
           </li>
         </ul>

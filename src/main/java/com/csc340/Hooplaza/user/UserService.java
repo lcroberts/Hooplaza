@@ -85,7 +85,9 @@ public class UserService {
         if (user.getCommunities() != null) {
             existing.setBookmarks(user.getBookmarks());
         }
-
+        if (user.getModeratorOf() != null) {
+            existing.setModeratorOf(user.getModeratorOf());
+        }
         existing.setActive(user.isActive());
 
         repo.save(existing);
