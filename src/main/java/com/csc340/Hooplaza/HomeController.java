@@ -63,7 +63,8 @@ public class HomeController {
 
         return switch (user.getRole()) {
             case "USER" -> "redirect:/user";
-            case "MOD" -> "redirect:/mod";
+//            case "MOD" -> "redirect:/mod";
+            case "MOD" -> "redirect/user"; // Temp until mod pages are made
             case "ADMIN" -> "redirect:/admin";
             default -> "redirect:/";
         };

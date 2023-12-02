@@ -65,6 +65,7 @@ public class AdminController {
         community.setDescription("");
 
 //        community.getMods().add(requester);
+        requester.setRole("MOD");
         requester.getModeratorOf().add(community);
         requester.getCommunities().add(community);
 
