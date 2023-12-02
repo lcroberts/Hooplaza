@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/requests")
     public String communityRequests(Model model) {
         List<CommunityRequest> requests = commRequestService.getAllRequests();
-        for (int i = 0; i < requests.size(); i++) {
+        for (int i = 0; i < requests.size();) {
             CommunityRequest request = requests.get(i);
             try {
                 User requester = userService.getUser(request.getUserId());
@@ -44,6 +44,10 @@ public class AdminController {
                 if (!requester.isActive()) {
                     requests.remove(request);
                     commRequestService.deleteById(request.getRequestId());
+                } else if (!request.isRequestActive()) {
+                    requests.remove(request);
+                } else {
+                    i++;
                 }
             } catch (Exception e) {
                 requests.remove(request);
@@ -57,27 +61,31 @@ public class AdminController {
     @GetMapping("/requests/accept/id={requestId}")
     public String acceptRequest(@PathVariable long requestId, Model model) {
         CommunityRequest request = commRequestService.getById(requestId);
+        request.setRequestAccepted(true);
+        request.setRequestActive(false);
+
         Community community = new Community();
         User requester = userService.getUser(request.getUserId());
-
         community.setName(request.getName());
         community.setLocationId(request.getLocationId());
         community.setDescription("");
 
-//        community.getMods().add(requester);
         requester.setRole("MOD");
         requester.getModeratorOf().add(community);
         requester.getCommunities().add(community);
 
         commService.saveCommunity(community);
-        commRequestService.deleteById(requestId);
+        commRequestService.updateRequest(request);
 
         return "redirect:/admin/requests";
     }
 
     @GetMapping("/requests/deny/id={requestId}")
     public String denyRequest(@PathVariable long requestId, Model model) {
-        commRequestService.deleteById(requestId);
+//        commRequestService.deleteById(requestId);
+        CommunityRequest request = commRequestService.getById(requestId);
+        request.setRequestActive(false);
+        commRequestService.updateRequest(request);
         return "redirect:/admin/requests";
     }
 
