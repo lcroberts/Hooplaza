@@ -35,7 +35,22 @@ public class AdminController {
 
     @GetMapping("/requests")
     public String communityRequests(Model model) {
-        model.addAttribute("requestList", commRequestService.getAllRequests());
+        List<CommunityRequest> requests = commRequestService.getAllRequests();
+        for (int i = 0; i < requests.size(); i++) {
+            CommunityRequest request = requests.get(i);
+            try {
+                User requester = userService.getUser(request.getUserId());
+
+                if (!requester.isActive()) {
+                    requests.remove(request);
+                    commRequestService.deleteById(request.getRequestId());
+                }
+            } catch (Exception e) {
+                requests.remove(request);
+                commRequestService.deleteById(request.getRequestId());
+            }
+        }
+        model.addAttribute("requestList", requests);
         return "admin/community-requests";
     }
 
