@@ -91,7 +91,16 @@ public class AdminController {
 
     @GetMapping("/communities")
     public String communities(Model model) {
-        model.addAttribute("communities", commService.getAllCommunities());
+        List<Community> communities = commService.getAllCommunities();
+        for (int i = 0; i < communities.size();) {
+            Community community = communities.get(i);
+            if (!community.isCommunityActive()) {
+                communities.remove(community);
+            } else {
+                i++;
+            }
+        }
+        model.addAttribute("communities", communities);
         return "admin/communities";
     }
 
@@ -106,7 +115,31 @@ public class AdminController {
             members.remove(user);
         }
         model.addAttribute("members", members);
+
+        if (community.isCommunityActive()) {
+            model.addAttribute("status", "This community is still active");
+        } else {
+            model.addAttribute("status", "This community is inactive");
+        }
         return "admin/community-details";
+    }
+
+    @GetMapping("/community/remove/id={id}")
+    public String removeCommunity(@PathVariable long id, Model model) {
+        Community community = commService.getById(id);
+        community.setCommunityActive(false);
+        commService.updateCommunity(community);
+
+        return "redirect:/admin/community/details/id=" + id;
+    }
+
+    @GetMapping("/community/activate/id={id}")
+    public String activateCommunity(@PathVariable long id, Model model) {
+        Community community = commService.getById(id);
+        community.setCommunityActive(true);
+        commService.updateCommunity(community);
+
+        return "redirect:/admin/community/details/id=" + id;
     }
 
     @GetMapping("/user/details/id={userId}")

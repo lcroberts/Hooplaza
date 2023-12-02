@@ -27,6 +27,7 @@ public class Community {
     private String name;
     private String locationId;
     private String description;
+    private boolean communityActive = true;
 
     @ManyToMany(
             fetch = FetchType.LAZY,

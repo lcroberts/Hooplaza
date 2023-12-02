@@ -22,4 +22,22 @@ public class CommunityService {
     public Community getById(long commId) {
         return repo.getReferenceById(commId);
     }
+
+    public void updateCommunity(Community community) {
+        Community existing = repo.getReferenceById(community.getCommunityId());
+        if (community.getName() != null) {
+            existing.setName(community.getName());
+        }
+        if (community.getDescription() != null) {
+            existing.setDescription(community.getDescription());
+        }
+        if (community.getLocationId() != null) {
+            existing.setLocationId(community.getLocationId());
+        }
+        if (community.getPosts() != null) {
+            existing.setPosts(community.getPosts());
+        }
+        community.setCommunityActive(existing.isCommunityActive());
+        repo.save(community);
+    }
 }

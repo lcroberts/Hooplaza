@@ -48,14 +48,6 @@
             <ul class="list-group mt-1" th:each="user : ${members}">
               <li class="list-group-item d-flex justify-content-between">
                 <div class="ms-2" th:text="${user.name}"></div>
-                <!-- <button -->
-                <!--   type="button" -->
-                <!--   class="btn btn-secondary" -->
-                <!--   data-bs-toggle="modal" -->
-                <!--   data-bs-target="#confirmationModal" -->
-                <!-- > -->
-                <!--   Add Moderator -->
-                <!-- </button> -->
                 <a
                   class = "btn btn-secondary"
                   th:href="@{/admin/mod/add/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
@@ -71,35 +63,6 @@
               data-bs-dismiss="modal"
             >
               Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal text-light"
-      tabindex="-1"
-      id="confirmationModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">Are you sure?</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
-              Yes
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Cancel
             </button>
           </div>
         </div>
@@ -150,7 +113,6 @@
               ></a>
             </div>
             <div class="me-2">
-              <!-- <a href="#" class="btn btn-primary">Remove Moderator</a> -->
               <a
                 class="btn btn-primary"
                 th:href="@{/admin/mod/remove/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
@@ -168,6 +130,11 @@
         >
           Add Moderator
         </button>
+        <br />
+      </div>
+      <div class="row">
+        <h2 class="text-center">Status</h2>
+        <p class="text-center" th:text="${status}"></p>
         <br />
       </div>
       <div class="row">
@@ -193,14 +160,14 @@
         </ul>
         <br />
         <br />
-        <button
-          type="button"
-          class="btn btn-primary m-3"
-          data-bs-toggle="modal"
-          data-bs-target="#confirmationModal"
-        >
-          Delete Community
-        </button>
+        <div class="row mt-5">
+          <div class="container-flex position-relative">
+            <div class="position-absolute top-50 start-50 translate-middle">
+              <a class="btn btn-primary" th:href="@{/admin/community/remove/id={id}(id=${community.communityId})}">Delete Community</a>
+              <a class="btn btn-secondary" th:href="@{/admin/community/activate/id={id}(id=${community.communityId})}">Activate Community</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
