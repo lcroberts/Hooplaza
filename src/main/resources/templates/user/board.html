@@ -53,6 +53,8 @@
                 object-fit: cover;
             }
 
+            .location {}
+
             .floating-button {
                 position: absolute;
                 width: 40px;
@@ -66,12 +68,12 @@
                 align-self: flex-end;
                 box-shadow: 2px 2px 3px #999;
                 z-index: 2000;
-
-                #map {
-                    height: 100%;
-                }
-
             }
+
+            #map {
+                height: 100%;
+            }
+
         }
     </style>
 </head>
@@ -92,6 +94,15 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"
 ></script>
+<!-- Google Maps API -->
+<script async type="text/javascript">
+    const API_KEY = ""; //insert API key
+    document.getElementById("mapsPlacesUrl").innerHTML ="https://maps.googleapis.com/maps/api/js?key="+API_KEY+"&libraries=places"
+    document.getElementById("mapsAutocompleteUrl").innerHTML = "https://maps.googleapis.com/maps/api/js?key="+API_KEY+"&libraries=places&callback=initMap"
+</script>
+<script async src="mapsPlacesUrl"></script>
+<script async src="mapsAutocompleteUrl"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <nav
         class="navbar fixed-top navbar-expand bg-dark border-bottom"
         data-bs-theme="dark"
@@ -128,7 +139,7 @@
 
 <!-- requestCommunity modal -->
 <div class="modal fade" id="requestCommunity" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Request Community</h5>
@@ -142,29 +153,7 @@
             <div class="modal-body">
                 <form action="/request/create" method="post">
                     <div class="container-fluid">
-                        <div class="row justify-content-between">
-                            <div class="col-lg-12">
-                                <img
-                                        src="https://assets.urbanturf.com/dc/images/blog/2018/08/google-map.jpg"
-                                        alt="placeholder image for interactive map"
-                                        style="
-                      border: 2px solid black;
-                      max-width: 100%;
-                      margin-bottom: 10px;
-                    "
-                                />
-                                <!--
-                                <div id="map"></div>
-
-
-                                <script>
-                                    initMap()
-                                </script>
-                                -->
-
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
+                        <div class="row m-2 justify-content-left">
                             <div class="col-sm-10">
                                 <input
                                         class="form-control"
@@ -177,17 +166,52 @@
                                 />
                             </div>
                         </div>
-                        <div class="row justify-content-center">
+                        <div class="row m-1 justify-content-between">
+                            <div class="col-lg-12">
+                                <!--
+                                Other things to do with the modal:
+                                    Grab location from embed URL;convert to text for location input.
+                                    Convert location input text to usable string for embed URL.
+                                /-->
+
+                                <iframe
+                                        id="mapFrame" name="mapFrame"
+                                        width="400" height="300"
+                                        style= "border:0" loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                ></iframe>
+                                <script type="text/javascript">
+                                    const COORDS = "36.0756171,-79.8134875"
+                                    const ZOOM = "16" //how far zoomed in (range 0-21)
+                                    document.getElementById("mapFrame").src =
+                                        "https://www.google.com/maps/embed/v1/view?key="
+                                        + API_KEY +
+                                        "&center=" + COORDS +
+                                        "&zoom=" + ZOOM;
+                                </script>
+
+                            </div>
+                        </div>
+                        <div class="row m-1 justify-content-center">
                             <div class="col-sm-10">
                                 <input
-                                        class="form-control"
-                                        type="text"
-                                        name="locationId"
+                                        class="location form-control"
                                         id="locationId"
+                                        name="locationId"
                                         placeholder="Where is your community?"
-                                        style="width: 100%"
                                         required="required"
+                                        style="width: 100%"
+                                        type="text"
                                 />
+                                <script type="text/javascript">
+                                    const locationInput = document.getElementById("modal-body");
+                                    const location = locationInput.querySelector(".location");
+                                    async function autocomplete() {
+                                        const response = await fetch('https://maps.googleapis.com/maps/api/place/autocomplete/json?'+location);
+                                        const autocomplete = await response.json(); //extract JSON from the http response
+                                        return autocomplete;
+                                    }
+                                </script>
                             </div>
                             <div class="col-sm-2">
                                 <button type="submit" class="btn btn-primary btn-sm">
@@ -227,8 +251,8 @@
                                             name="title"
                                             id="title"
                                             placeholder="Make a flashy title!"
-                                            required>
-                                    </input>
+                                            required
+                                    >
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -285,7 +309,7 @@
     </div>
 </form>
 
-<!-- Offcanvas -->
+<!-- Offcanvas (Sidebar) -->
 <div
         class="offcanvas offcanvas-start text-bg-dark"
         tabindex="-1"
@@ -433,9 +457,11 @@
                             <img
                                     id="modalImage"
                                     src=""
-                                    alt="Image goes here"
                                     style="border: 4px solid black; max-width: 100%"
                             />
+                            <script>
+                                document.getElementById("modalImage").alt = API_KEY;
+                            </script>
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -486,28 +512,11 @@
 
 
         cardRow.appendChild(newCard);
-    }
 
-    let map;
-
-    async function initMap() {
-        //(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",
-        //      m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,
-        //      e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));
-        //      e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);
-        //      e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;
-        //      d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));
-        //      a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));
-        //      d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        //({key: , v: "weekly"});
-        const {Map} = await google.maps.importLibrary("maps");
-
-        map = new Map(document.getElementById("map"), {
-            center: {lat: -34.397, lng: 150.644},
-            zoom: 8,
-        });
-    }
-
+</script>
+<script>
+    const {MVCObject} = await google.maps.importLibrary("core"); //import MVCObject. necessary for Places library
+    const {Autocomplete} = await google.maps.importLibrary("places"); //location autocomplete library
 </script>
 </body>
 </html>

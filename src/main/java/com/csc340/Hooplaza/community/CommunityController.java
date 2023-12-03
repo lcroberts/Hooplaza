@@ -11,4 +11,5 @@ public class CommunityController {
     @Autowired
     private CommunityService service;
 
+    //if (role == "USER") save in members<>, if (role == MOD) save in mods<>
 }

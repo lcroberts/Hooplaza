@@ -27,7 +27,7 @@ public class Community {
     private String locationId;
     private String description;
     @Transient
-    private ArrayList<User> mods; //may need to create Moderator class
+    private ArrayList<User> mods;
     @Transient
     private ArrayList<User> members;
     @Transient
