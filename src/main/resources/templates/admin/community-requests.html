@@ -55,43 +55,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <div
-      class="modal text-light"
-      tabindex="-1"
-      id="userDetailsModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <h2>User Details Template</h2>
-            <hr />
-            <p>
-              Email: example@example.com <br />
-              Name: John Doe
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Ban User
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <nav
       class="navbar fixed-top navbar-expand bg-dark border-bottom"
       data-bs-theme="dark"
@@ -120,75 +83,23 @@
       </div>
     </nav>
 
-    <div
-      class="modal text-light"
-      tabindex="-1"
-      id="confirmationModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">Are you sure?</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
-              Yes
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div id="post-container" th:each="request : ${requestList}">
       <div class="container">
         <div id="card-row">
           <div class="card mb-3">
             <div class="card-body">
               <h5 class="card-title" th:text="${request.name}"></h5>
-              <h6 class="card-subtitle">
-                <a
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#userDetailsModal"
-                  id="userLink"
-                  >Test User <span class="user-number">1</span></a
-                >
-              </h6>
+              <a th:href="@{/admin/user/details/id={id}(id=${request.userId})}">
+                <h6 class="card-subtitle" th:text="${request.userName}"></h6>
+              </a>
               <p class="card-text" th:text="${request.body}"></p>
             </div>
             <div class="card-footer">
-              <!-- <button -->
-              <!--   type="button" -->
-              <!--   class="btn btn-primary" -->
-              <!--   data-bs-toggle="modal" -->
-              <!--   data-bs-target="#confirmationModal" -->
-              <!-- > -->
-              <!--   Approve -->
-              <!-- </button> -->
               <a
                 th:href="@{/admin/requests/accept/id={id}(id=${request.requestId})}"
                 class="btn btn-primary"
                 >Approve</a
               >
-              <!-- <button -->
-              <!--   type="button" -->
-              <!--   class="btn btn-primary" -->
-              <!--   data-bs-toggle="modal" -->
-              <!--   data-bs-target="#confirmationModal" -->
-              <!-- > -->
-              <!--   Deny -->
-              <!-- </button> -->
-
               <a
                 th:href="@{/admin/requests/deny/id={id}(id=${request.requestId})}"
                 class="btn btn-Secondary"

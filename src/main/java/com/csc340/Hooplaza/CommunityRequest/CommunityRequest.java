@@ -24,6 +24,8 @@ public class CommunityRequest {
     private String body;
     private long userId; // Id of requester
     private String userName;
+    boolean requestActive = true;
+    boolean requestAccepted = false;
 
     public CommunityRequest(String name, String locationId, String body, long userId) {
         this.name = name;

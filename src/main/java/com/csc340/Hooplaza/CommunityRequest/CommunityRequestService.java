@@ -82,5 +82,8 @@ public class CommunityRequestService {
         if (request.getLocationId() != null) {
             existing.setLocationId(request.getLocationId());
         }
+        existing.setRequestActive(request.isRequestActive());
+        existing.setRequestAccepted(request.isRequestAccepted());
+        reqRepo.save(existing);
     }
 }

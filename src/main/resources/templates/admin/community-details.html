@@ -28,43 +28,6 @@
     <div
       class="modal text-light"
       tabindex="-1"
-      id="userDetailsModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <h2>User Details Template</h2>
-            <hr />
-            <p>
-              Email: example@example.com <br />
-              Name: John Doe
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Ban User
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal text-light"
-      tabindex="-1"
       id="modModal"
       data-bs-theme="dark"
     >
@@ -82,53 +45,14 @@
                 Search
               </button>
             </form>
-            <ul class="list-group mt-1">
+            <ul class="list-group mt-1" th:each="user : ${members}">
               <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 1</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
+                <div class="ms-2" th:text="${user.name}"></div>
+                <a
+                  class = "btn btn-secondary"
+                  th:href="@{/admin/mod/add/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
+                  >Add Moderator</a
                 >
-                  Add Moderator
-                </button>
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 2</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Add Moderator
-                </button>
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 3</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Add Moderator
-                </button>
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                <div class="ms-2">Test User 4</div>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmationModal"
-                >
-                  Add Moderator
-                </button>
               </li>
             </ul>
           </div>
@@ -139,35 +63,6 @@
               data-bs-dismiss="modal"
             >
               Dismiss
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal text-light"
-      tabindex="-1"
-      id="confirmationModal"
-      data-bs-theme="dark"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">Are you sure?</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
-              Yes
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary me-auto"
-              data-bs-dismiss="modal"
-            >
-              Cancel
             </button>
           </div>
         </div>
@@ -204,85 +99,26 @@
 
     <div class="container-lg mt-5 pt-2">
       <div class="row justify-content-center">
-        <div class="col text-center"><h1>Community Details Template</h1></div>
+        <div class="col text-center">
+          <h1>Community: <a th:text="${community.name}"></a></h1>
+        </div>
       </div>
       <div class="row">
         <h2 class="text-center mt-3">Moderators</h2>
-        <ul class="list-group px-5">
+        <ul class="list-group px-5" th:each="user : ${mods}">
           <li class="list-group-item d-flex justify-content-between">
             <div class="ms-2">
+              <a th:href="@{/admin/user/details/id={id}(id=${user.userId})}"
+                ><p th:text="${user.name}"></p
+              ></a>
+            </div>
+            <div class="me-2">
               <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 1</a
+                class="btn btn-primary"
+                th:href="@{/admin/mod/remove/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
+                >Remove Moderator</a
               >
             </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Remove Moderator
-            </button>
-          </li>
-
-          <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 2</a
-              >
-            </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Remove Moderator
-            </button>
-          </li>
-
-          <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 3</a
-              >
-            </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Remove Moderator
-            </button>
-          </li>
-
-          <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 4</a
-              >
-            </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Remove Moderator
-            </button>
           </li>
         </ul>
 
@@ -297,80 +133,41 @@
         <br />
       </div>
       <div class="row">
+        <h2 class="text-center">Status</h2>
+        <p class="text-center" th:text="${status}"></p>
+        <br />
+      </div>
+      <div class="row">
         <h2 class="text-center">Description</h2>
-        <p>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum."
-        </p>
+        <p th:text="${community.description}"></p>
         <br />
       </div>
       <div class="row">
         <h2 class="text-center">Location Details</h2>
-        <p>Example Location</p>
+        <p th:text="${community.locationId}"></p>
       </div>
 
       <div class="row">
         <h2 class="text-center mt-3">Users</h2>
-        <ul class="list-group px-5">
+        <ul class="list-group px-5" th:each="user : ${members}">
           <li class="list-group-item d-flex justify-content-between">
             <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 1</a
-              >
-            </div>
-          </li>
-
-          <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 2</a
-              >
-            </div>
-          </li>
-
-          <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 3</a
-              >
-            </div>
-          </li>
-
-          <li class="list-group-item d-flex justify-content-between">
-            <div class="ms-2">
-              <a
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#userDetailsModal"
-                >Test User 4</a
-              >
+              <a th:href="@{/admin/user/details/id={id}(id=${user.userId})}"
+                ><p th:text="${user.name}"></p
+              ></a>
             </div>
           </li>
         </ul>
         <br />
         <br />
-        <button
-          type="button"
-          class="btn btn-primary m-3"
-          data-bs-toggle="modal"
-          data-bs-target="#confirmationModal"
-        >
-          Delete Community
-        </button>
+        <div class="row mt-5">
+          <div class="container-flex position-relative">
+            <div class="position-absolute top-50 start-50 translate-middle">
+              <a class="btn btn-primary" th:href="@{/admin/community/remove/id={id}(id=${community.communityId})}">Delete Community</a>
+              <a class="btn btn-secondary" th:href="@{/admin/community/activate/id={id}(id=${community.communityId})}">Activate Community</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>

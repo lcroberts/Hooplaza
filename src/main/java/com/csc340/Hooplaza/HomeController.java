@@ -1,7 +1,5 @@
 package com.csc340.Hooplaza;
 
-import com.csc340.Hooplaza.community.Community;
-import com.csc340.Hooplaza.post.Post;
 import com.csc340.Hooplaza.user.User;
 import com.csc340.Hooplaza.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -35,8 +31,6 @@ public class HomeController {
 
     @PostMapping("/signup/create")
     public String signupCreate(User user) {
-        user.setCommunities(new ArrayList<Community>());
-        user.setBookmarks(new ArrayList<Post>());
         user.setRole("USER");
         userService.saveUser(user);
         return "redirect:/redirect-user";
@@ -61,10 +55,16 @@ public class HomeController {
         } else {
             return "redirect:/";
         }
-        String role = userService.getUserByEmail(email).getRole();
-        return switch (role) {
+        User user = userService.getUserByEmail(email);
+
+        if (!user.isActive()) {
+            return "banned";
+        }
+
+        return switch (user.getRole()) {
             case "USER" -> "redirect:/user";
-            case "MOD" -> "redirect:/mod";
+//            case "MOD" -> "redirect:/mod";
+            case "MOD" -> "redirect/user"; // Temp until mod pages are made
             case "ADMIN" -> "redirect:/admin";
             default -> "redirect:/";
         };

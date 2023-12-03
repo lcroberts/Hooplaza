@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @AllArgsConstructor
-@Entity
+@Entity(name = "Community")
 @Table(name = "community")
 @NoArgsConstructor
 @Getter
@@ -26,15 +27,27 @@ public class Community {
     private String name;
     private String locationId;
     private String description;
-    @Transient
-    private ArrayList<User> mods;
-    @Transient
-    private ArrayList<User> members;
-    @Transient
-    private ArrayList<Post> posts;
+    private boolean communityActive = true;
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "moderatorOf"
+    )
+    private List<User> mods = new ArrayList<>();
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "communities"
+    )
+    private List<User> members = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 
 
-    public Community(String name, String locationId, String description, ArrayList<User> mods, ArrayList<User> members) {
+    public Community(String name, String locationId, String description, List<User> mods, List<User> members) {
         this.name = name;
         this.locationId = locationId;
         this.description = description;
