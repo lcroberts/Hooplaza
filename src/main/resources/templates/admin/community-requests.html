@@ -71,7 +71,20 @@
               >
             </li>
             <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/admin/requests/processed"
+                >Requests (Processed)</a
+              >
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/admin/communities">Communities</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/communities/removed"
+                >Communities (Removed)</a
+              >
             </li>
           </ul>
           <form class="form-inline" th:action="@{/logout}" method="post">

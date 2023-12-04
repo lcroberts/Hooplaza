@@ -63,15 +63,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="/admin/requests"
+              <a class="nav-link" aria-current="page" href="/admin/requests"
                 >Requests</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin/communities">Communities</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/admin/requests/processed"
+                >Requests (Processed)</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/communities"
+                >Communities</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/communities/removed"
+                >Communities (Removed)</a
+              >
             </li>
           </ul>
           <form class="form-inline" th:action="@{/logout}" method="post">

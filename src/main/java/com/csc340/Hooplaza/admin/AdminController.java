@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/requests")
     public String communityRequests(Model model) {
         List<CommunityRequest> requests = commRequestService.getAllRequests();
-        for (int i = 0; i < requests.size();) {
+        for (int i = 0; i < requests.size(); ) {
             CommunityRequest request = requests.get(i);
             try {
                 User requester = userService.getUser(request.getUserId());
@@ -56,6 +56,28 @@ public class AdminController {
         }
         model.addAttribute("requestList", requests);
         return "admin/community-requests";
+    }
+
+    @GetMapping("/requests/processed")
+    public String processedCommunityRequests(Model model) {
+        List<CommunityRequest> requests = commRequestService.getAllRequests();
+        for (int i = 0; i < requests.size(); ) {
+            CommunityRequest request = requests.get(i);
+            try {
+                User requester = userService.getUser(request.getUserId());
+                if (request.isRequestActive()) {
+                    requests.remove(request);
+                } else {
+                    i++;
+                }
+            } catch (Exception e) {
+                requests.remove(request);
+                commRequestService.deleteById(request.getRequestId());
+            }
+        }
+        model.addAttribute("requestList", requests);
+
+        return "admin/community-requests-processed";
     }
 
     @GetMapping("/requests/accept/id={requestId}")
@@ -82,7 +104,6 @@ public class AdminController {
 
     @GetMapping("/requests/deny/id={requestId}")
     public String denyRequest(@PathVariable long requestId, Model model) {
-//        commRequestService.deleteById(requestId);
         CommunityRequest request = commRequestService.getById(requestId);
         request.setRequestActive(false);
         commRequestService.updateRequest(request);
@@ -92,7 +113,7 @@ public class AdminController {
     @GetMapping("/communities")
     public String communities(Model model) {
         List<Community> communities = commService.getAllCommunities();
-        for (int i = 0; i < communities.size();) {
+        for (int i = 0; i < communities.size(); ) {
             Community community = communities.get(i);
             if (!community.isCommunityActive()) {
                 communities.remove(community);
@@ -102,6 +123,21 @@ public class AdminController {
         }
         model.addAttribute("communities", communities);
         return "admin/communities";
+    }
+
+    @GetMapping("/communities/removed")
+    public String removedCommunities(Model model) {
+        List<Community> communities = commService.getAllCommunities();
+        for (int i = 0; i < communities.size(); ) {
+            Community community = communities.get(i);
+            if (community.isCommunityActive()) {
+                communities.remove(community);
+            } else {
+                i++;
+            }
+        }
+        model.addAttribute("communities", communities);
+        return "admin/communities-removed";
     }
 
     @GetMapping("/community/details/id={communityId}")

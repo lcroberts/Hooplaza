@@ -34,22 +34,11 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body">
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="button">
-                Search
-              </button>
-            </form>
             <ul class="list-group mt-1" th:each="user : ${members}">
               <li class="list-group-item d-flex justify-content-between">
                 <div class="ms-2" th:text="${user.name}"></div>
                 <a
-                  class = "btn btn-secondary"
+                  class="btn btn-secondary"
                   th:href="@{/admin/mod/add/id={id}/community/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
                   >Add Moderator</a
                 >
@@ -72,7 +61,6 @@
     <nav
       class="navbar fixed-top navbar-expand bg-dark border-bottom"
       data-bs-theme="dark"
-      style="margin-bottom: 50px"
     >
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -83,8 +71,21 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/admin/communities"
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/admin/requests/processed"
+                >Requests (Processed)</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/communities"
                 >Communities</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/communities/removed"
+                >Communities (Removed)</a
               >
             </li>
           </ul>
@@ -163,8 +164,16 @@
         <div class="row mt-5">
           <div class="container-flex position-relative">
             <div class="position-absolute top-50 start-50 translate-middle">
-              <a class="btn btn-primary" th:href="@{/admin/community/remove/id={id}(id=${community.communityId})}">Delete Community</a>
-              <a class="btn btn-secondary" th:href="@{/admin/community/activate/id={id}(id=${community.communityId})}">Activate Community</a>
+              <a
+                class="btn btn-primary"
+                th:href="@{/admin/community/remove/id={id}(id=${community.communityId})}"
+                >Delete Community</a
+              >
+              <a
+                class="btn btn-secondary"
+                th:href="@{/admin/community/activate/id={id}(id=${community.communityId})}"
+                >Activate Community</a
+              >
             </div>
           </div>
         </div>
