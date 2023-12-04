@@ -24,16 +24,17 @@ public class Post {
     private long userId;
     private String title;
     private String content;
-    @Transient
     private String tag;
+    private String imageURL;
     private Date postDate; //set value
 
-    public Post(long communityId, long userId, String title, String content, String tag) {
+    public Post(long communityId, long userId, String title, String content, String tag, String imageURL) {
         this.communityId = communityId;
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.tag = tag;
+        this.imageURL = imageURL;
     }
 
     @PrePersist
