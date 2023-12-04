@@ -58,8 +58,12 @@ public class UserService {
      *
      * @param user user to save
      */
-    public void saveUser(User user) {
+    public void saveNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        repo.save(user);
+    }
+
+    public void saveUser(User user) {
         repo.save(user);
     }
 
