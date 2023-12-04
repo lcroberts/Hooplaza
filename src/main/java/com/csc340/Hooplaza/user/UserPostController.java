@@ -22,7 +22,7 @@ public class UserPostController {
     @Autowired
     private UserService userService;
     @Autowired
-    private PostService service;
+    private PostService postService;
 
     @PostMapping("/create")
     public String createPost(Post post) {
@@ -31,19 +31,30 @@ public class UserPostController {
         User user = userService.getUserByEmail(userAuthentication.getName());
         //Community community = communityService.getCommunityByLocation(location);
         post.setUserId(user.getUserId());
-        service.savePost(post);
+        postService.savePost(post);
         return "redirect:/user";
     }
 
     @GetMapping("/delete/id={productId}")
     public String deletePost(@PathVariable long postId, Model model) {
-        service.deletePost(postId);
+        postService.deletePost(postId);
         return "redirect:/product/all";
     }
 
     @PostMapping("/update")
     public String updatePost(Post post) {
-        service.savePost(post);
+        postService.savePost(post);
+        return "redirect:/user/board";
+    }
+
+    @GetMapping("/bookmark/id={postId}")
+    public String bookmarkPost(@PathVariable long postId, Model model) {
+        User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Post post = postService.getPost(postId);
+        if (!user.getBookmarks().contains(post)) {
+            user.getBookmarks().add(post);
+            userService.updateUser(user);
+        }
         return "redirect:/user/board";
     }
 }

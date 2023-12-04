@@ -1,345 +1,377 @@
 <!doctype html>
 <html
-        lang="en"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Board</title>
     <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <style>
-        body {
-            padding-top: 67px;
+      body {
+        padding-top: 67px;
+      }
+
+      .offcanvas-footer {
+        padding: 0.5rem 0.5rem;
+        border-top: 1px solid #dee2e6;
+      }
+
+      #post-container {
+        max-height: calc(100vh - 125px);
+        overflow-y: auto;
+
+        .card-text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
         }
 
-        .offcanvas-footer {
-            padding: 0.5rem 0.5rem;
-            border-top: 1px solid #dee2e6;
+        .square-image {
+          position: relative;
+          overflow: hidden;
+          padding-bottom: 100%;
+          background-color: black;
         }
 
-        #post-container {
-            max-height: calc(100vh - 125px);
-            overflow-y: auto;
-
-            .card-text {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 6;
-                -webkit-box-orient: vertical;
-            }
-
-            .square-image {
-                position: relative;
-                overflow: hidden;
-                padding-bottom: 100%;
-                background-color: black;
-            }
-
-            .square-image img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            .location {
-            }
-
-            .floating-button {
-                position: absolute;
-                width: 40px;
-                height: 40px;
-                bottom: 40rem;
-                right: 40rem;
-                background-color: transparent !important;
-                color: #fff;
-                border-radius: 50px;
-                align-items: center;
-                align-self: flex-end;
-                box-shadow: 2px 2px 3px #999;
-                z-index: 2000;
-            }
-
-            #map {
-                height: 100%;
-            }
-
+        .square-image img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
+
+        .location {
+        }
+
+        .floating-button {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          bottom: 40rem;
+          right: 40rem;
+          background-color: transparent !important;
+          color: #fff;
+          border-radius: 50px;
+          align-items: center;
+          align-self: flex-end;
+          box-shadow: 2px 2px 3px #999;
+          z-index: 2000;
+        }
+
+        #map {
+          height: 100%;
+        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<!-- Bootstrap CSS -->
-<link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-/>
-<!-- Bootstrap Font Icon CSS -->
-<link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-/>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"
-></script>
-<!-- Google Maps API -->
-<script async type="text/javascript">
-    const API_KEY = ""; //insert API key
-    document.getElementById("mapsPlacesUrl").innerHTML = "https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&libraries=places"
-    document.getElementById("mapsAutocompleteUrl").innerHTML = "https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&libraries=places&callback=initMap"
-</script>
-<script async src="mapsPlacesUrl"></script>
-<script async src="mapsAutocompleteUrl"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <body>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    />
+    <!-- Bootstrap Font Icon CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google Maps API -->
+    <script async type="text/javascript">
+      const API_KEY = ""; //insert API key
+      document.getElementById("mapsPlacesUrl").innerHTML =
+        "https://maps.googleapis.com/maps/api/js?key=" +
+        API_KEY +
+        "&libraries=places";
+      document.getElementById("mapsAutocompleteUrl").innerHTML =
+        "https://maps.googleapis.com/maps/api/js?key=" +
+        API_KEY +
+        "&libraries=places&callback=initMap";
+    </script>
+    <script async src="mapsPlacesUrl"></script>
+    <script async src="mapsAutocompleteUrl"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-<!-- NavBar -->
-<nav
-        class="navbar fixed-top navbar-expand bg-dark border-bottom"
-        data-bs-theme="dark"
->
-    <div class="container-fluid">
+    <!-- NavBar -->
+    <nav
+      class="navbar fixed-top navbar-expand bg-dark border-bottom"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a
-                            class="nav-link active"
-                            data-bs-toggle="offcanvas"
-                            href="#sidebar"
-                            aria-controls="sidebar"
-                    ><span class="navbar-toggler-icon"></span
-                    ></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/user"
-                    >Bookmarks</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/user">Board</a>
-                </li>
-            </ul>
-            <form class="form-inline" th:action="@{/logout}" method="post">
-                <button class="btn btn-secondary me-2" type="submit">
-                    Sign Out
-                </button>
-            </form>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                data-bs-toggle="offcanvas"
+                href="#sidebar"
+                aria-controls="sidebar"
+                ><span class="navbar-toggler-icon"></span
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/user/bookmarks">Bookmarks</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/user/board">Board</a>
+            </li>
+          </ul>
+          <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-secondary me-2" type="submit">
+              Sign Out
+            </button>
+          </form>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<!-- requestCommunity modal -->
-<div class="modal fade" id="requestCommunity" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <!-- requestCommunity modal -->
+    <div class="modal fade" id="requestCommunity" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Request Community</h5>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                <form action="/request/create" method="post">
-                    <div class="container-fluid">
-                        <div class="row m-2 justify-content-left">
-                            <div class="col-sm-10">
-                                <input
-                                        class="form-control"
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        placeholder="Name your community"
-                                        style="width: 100%"
-                                        required="required"
-                                />
-                            </div>
-                        </div>
-                        <div class="row m-1 justify-content-between">
-                            <div class="col-lg-12">
-                                <!--
+          <div class="modal-header">
+            <h5 class="modal-title">Request Community</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/request/create" method="post">
+              <div class="container-fluid">
+                <div class="row m-2 justify-content-left">
+                  <div class="col-sm-10">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder="Name your community"
+                      style="width: 100%"
+                      required="required"
+                    />
+                  </div>
+                </div>
+                <div class="row m-1 justify-content-between">
+                  <div class="col-lg-12">
+                    <!--
                                 Other things to do with the modal:
                                     Grab location from embed URL;convert to text for location input.
                                     Convert location input text to usable string for embed URL.
                                 /-->
 
-                                <iframe
-                                        id="mapFrame" name="mapFrame"
-                                        width="400" height="300"
-                                        style="border:0" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                ></iframe>
-                                <script type="text/javascript">
-                                    const COORDS = "36.0756171,-79.8134875"
-                                    const ZOOM = "16" //how far zoomed in (range 0-21)
-                                    document.getElementById("mapFrame").src =
-                                        "https://www.google.com/maps/embed/v1/view?key="
-                                        + API_KEY +
-                                        "&center=" + COORDS +
-                                        "&zoom=" + ZOOM;
-                                </script>
+                    <iframe
+                      id="mapFrame"
+                      name="mapFrame"
+                      width="400"
+                      height="300"
+                      style="border: 0"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                    <script type="text/javascript">
+                      const COORDS = "36.0756171,-79.8134875";
+                      const ZOOM = "16"; //how far zoomed in (range 0-21)
+                      document.getElementById("mapFrame").src =
+                        "https://www.google.com/maps/embed/v1/view?key=" +
+                        API_KEY +
+                        "&center=" +
+                        COORDS +
+                        "&zoom=" +
+                        ZOOM;
+                    </script>
+                  </div>
+                </div>
+                <div class="row m-1 justify-content-center">
+                  <div class="col-sm-10">
+                    <input
+                      class="location form-control"
+                      id="locationId"
+                      name="locationId"
+                      placeholder="Where is your community?"
+                      required="required"
+                      style="width: 100%"
+                      type="text"
+                    />
+                    <script type="text/javascript">
+                      const locationInput =
+                        document.getElementById("modal-body");
+                      const location = locationInput.querySelector(".location");
 
-                            </div>
-                        </div>
-                        <div class="row m-1 justify-content-center">
-                            <div class="col-sm-10">
-                                <input
-                                        class="location form-control"
-                                        id="locationId"
-                                        name="locationId"
-                                        placeholder="Where is your community?"
-                                        required="required"
-                                        style="width: 100%"
-                                        type="text"
-                                />
-                                <script type="text/javascript">
-                                    const locationInput = document.getElementById("modal-body");
-                                    const location = locationInput.querySelector(".location");
-
-                                    async function autocomplete() {
-                                        const response = await fetch('https://maps.googleapis.com/maps/api/place/autocomplete/json?' + location);
-                                        const autocomplete = await response.json(); //extract JSON from the http response
-                                        return autocomplete;
-                                    }
-                                </script>
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    Go
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                      async function autocomplete() {
+                        const response = await fetch(
+                          "https://maps.googleapis.com/maps/api/place/autocomplete/json?" +
+                            location,
+                        );
+                        const autocomplete = await response.json(); //extract JSON from the http response
+                        return autocomplete;
+                      }
+                    </script>
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                      Go
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Post Modal -->
-<form action="/user/post/create" method="post">
-    <div class="modal fade" id="newPost" tabindex="-1">
+    <!-- Post Modal -->
+    <form action="/user/post/create" method="post">
+      <div class="modal fade" id="newPost" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Post</h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row justify-content=left">
-                            <div class="col-sm-10 text-wrap d-flex">
-                                <div class="form-group">
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="title"
-                                            id="title"
-                                            placeholder="Make a flashy title!"
-                                            required
-                                    >
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-sm-10 text-wrap d-flex">
-                                    <div class="form-group">
-                                        <textarea
-                                                class="form-control"
-                                                name="content"
-                                                id="content"
-                                                placeholder="What's new with you?"
-                                        ></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 d-flex align-items-center">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        Post
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="container-fluid">
-                            <div class="row justify-content-start">
-                                <div class="col-sm-1">
-                                    <label
-                                            class="btn btn-primary btn-sm btn-floating rounded-circle"
-                                    >
-                                        <span class="bi bi-paperclip"></span>
-                                        <input id="imageURL" name="imageURL" type="file"
-                                               accept="image/*" onchange="readURL(this)"
-                                               hidden
-                                        />
-                                    </label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <img src="" id="previewImage" style='height:30px;'>
-                                </div>
-                                <div class="col-sm-4">
-                                    <select class="btn btn-light btn-sm dropdown-toggle" id="addTag" name="addTag">
-                                        <option class="dropdown-item badge rounded-pill bg-warning" value="Club">Club
-                                        </option>
-                                        <option class="dropdown-item badge rounded-pill bg-danger" value="Project">
-                                            Project
-                                        </option>
-                                        <option class="dropdown-item badge rounded-pill bg-success" value="Event">
-                                            Event
-                                        </option>
-                                        <hr class="dropdown-divider"/>
-                                        <option class="dropdown-item" value="" selected="selected">No tag</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 
-<!-- Offcanvas (Sidebar) -->
-<div
-        class="offcanvas offcanvas-start text-bg-dark"
-        tabindex="-1"
-        id="sidebar"
-        aria-labelledby="sidebarLabel"
-        data-bs-theme="dark"
->
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
-        <button
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">New Post</h5>
+              <button
                 type="button"
                 class="btn-close"
-                data-bs-dismiss="offcanvas"
+                data-bs-dismiss="modal"
                 aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row justify-content=left">
+                  <div class="col-sm-10 text-wrap d-flex">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="title"
+                        id="title"
+                        placeholder="Make a flashy title!"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-sm-10 text-wrap d-flex">
+                      <div class="form-group">
+                        <textarea
+                          class="form-control"
+                          name="content"
+                          id="content"
+                          placeholder="What's new with you?"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-2 d-flex align-items-center">
+                      <button type="submit" class="btn btn-primary btn-sm">
+                        Post
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="container-fluid">
+                  <div class="row justify-content-start">
+                    <div class="col-sm-2">
+                      <label
+                        class="btn btn-primary btn-sm btn-floating rounded-circle"
+                      >
+                        <span class="bi bi-paperclip"></span>
+                        <input
+                          id="imageURL"
+                          name="imageURL"
+                          type="file"
+                          accept="image/*"
+                          hidden
+                        />
+                      </label>
+                    </div>
+                    <div class="col-sm-4">
+                      <select
+                        class="btn btn-light btn-sm dropdown-toggle"
+                        id="addTag"
+                        name="addTag"
+                      >
+                        <option
+                          class="dropdown-item badge rounded-pill bg-warning"
+                          value="Club"
+                        >
+                          Club
+                        </option>
+                        <option
+                          class="dropdown-item badge rounded-pill bg-danger"
+                          value="Project"
+                        >
+                          Project
+                        </option>
+                        <option
+                          class="dropdown-item badge rounded-pill bg-success"
+                          value="Event"
+                        >
+                          Event
+                        </option>
+                        <hr class="dropdown-divider" />
+                        <option
+                          class="dropdown-item"
+                          value=""
+                          selected="selected"
+                        >
+                          No tag
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Offcanvas (Sidebar) -->
+    <div
+      class="offcanvas offcanvas-start text-bg-dark"
+      tabindex="-1"
+      id="sidebar"
+      aria-labelledby="sidebarLabel"
+      data-bs-theme="dark"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
         ></button>
-    </div>
-    <div class="offcanvas-body">
+      </div>
+      <div class="offcanvas-body">
         <div><h6>Your Communities</h6></div>
         <nav>
             <div id="switchCommunity" class="cb d-grid gap-2">
@@ -360,174 +392,191 @@
     </div>
     <div class="offcanvas-footer">
         <p style="font-size: 12px">
-            Don't see your community?
-            <button
-                    type="button"
-                    class="btn btn-sm btn-link"
-                    data-bs-toggle="modal"
-                    data-bs-target="#requestCommunity"
-            >
-                Request one
-            </button>
-        </p>
-    </div>
-</div>
-
-<!-- Post Button -->
-<div class="container m-1" id="floating-button">
-    <div
-            class="btn btn-primary btn-lg btn-floating rounded-circle"
+          Don't see your community?
+          <button
+            type="button"
+            class="btn btn-sm btn-link"
             data-bs-toggle="modal"
-            data-bs-target="#newPost"
-    >
+            data-bs-target="#requestCommunity"
+          >
+            Request one
+          </button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Post Button -->
+    <div class="container m-1" id="floating-button">
+      <div
+        class="btn btn-primary btn-lg btn-floating rounded-circle"
+        data-bs-toggle="modal"
+        data-bs-target="#newPost"
+      >
         <span class="bi bi-plus-lg"></span>
+      </div>
     </div>
-</div>
 
-<div id="post-container">
-    <div class="container">
+    <div id="post-container">
+      <div class="container">
         <div id="card-row">
-            <!-- The original card -->
+          <!-- The original card -->
 
-            <div th:each="post : ${postList}" class="card mb-3 border-dark">
-                <div class="row g-0">
-                    <div class="col-5 col-md-4 col-lg-3" data-bs-toggle="modal" data-bs-target="#myModal">
-                        <div class="square-image">
-                            <!-- how to do function in html tag -->
-                            <img
-                                    id="postImage"
-                                    th:onload="readURL(${post.imageURL})"
-                                    src=""
-                                    alt="Image goes here"
-                                    style="border: 4px solid black; max-width: 40vw"
-                            />
-                        </div>
-                    </div>
-                    <div
-                            class="col-7 col-md-8 col-lg-9"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModal"
-                    >
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${post.title}"></h5>
-                            <p class="card-text" th:text=" ${post.content}"></p>
-                        </div>
-                    </div>
+          <div th:each="post : ${postList}" class="card mb-3 border-dark">
+            <div class="row g-0">
+              <div
+                class="col-5 col-md-4 col-lg-3"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              >
+                <div class="square-image">
+                  <!-- how to do function in html tag -->
+                  <img
+                    id="postImage"
+                    th:onload="readURL(${post.imageURL})"
+                    src=""
+                    alt="Image goes here"
+                    style="border: 4px solid black; max-width: 40vw"
+                  />
                 </div>
-                <div class="card-footer">
-                    <div class="row justify-content-between">
-                        <div class="col-5 col-md-4 col-lg-3">
-                            <div class="row justify-content-between">
-                                <div class="col">
-                                    <small class="text-muted">Members: 15</small>
-                                </div>
-                                <div class="col text-end">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-7 col-md-8 col-lg-9">
-                            <div class="row justify-content-between">
-                                <div class="col">
-                                    <p th:text="${post.tag}" class="badge rounded-pill bg-secondary"></p>
-                                </div>
-                                <div class="col text-end">
-                                    <button type="button" class="btn btn-primary">
-                                        Bookmark
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div
+                class="col-7 col-md-8 col-lg-9"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              >
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${post.title}"></h5>
+                  <p class="card-text" th:text=" ${post.content}"></p>
                 </div>
+              </div>
             </div>
+            <div class="card-footer">
+              <div class="row justify-content-between">
+                <div class="col-5 col-md-4 col-lg-3">
+                  <div class="row justify-content-between">
+                    <div class="col">
+                      <small class="text-muted">Members: 15</small>
+                    </div>
+                    <div class="col text-end">
+                      <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-7 col-md-8 col-lg-9">
+                  <div class="row justify-content-between">
+                    <div class="col">
+                      <p
+                        th:text="${post.tag}"
+                        class="badge rounded-pill bg-secondary"
+                      ></p>
+                    </div>
+                    <div class="col text-end">
+                      <a
+                        class="btn btn-primary"
+                        th:href="@{/user/post/bookmark/id={id}(id=${post.postId})}"
+                        >Bookmark</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<div
-        class="modal fade"
-        id="myModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
->
     <div
-            class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down"
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
     >
+      <div
+        class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down"
+      >
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Post Title</h5>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body" style="min-height: 500px">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="square-image">
-                            <img
-                                    id="modalImage"
-                                    src=""
-                                    alt="Image goes here"
-                                    style="border: 4px solid black; max-width: 100%"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <p id="modalBodyText"></p>
-                    </div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Post Title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" style="min-height: 500px">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="square-image">
+                  <img
+                    id="modalImage"
+                    src=""
+                    alt="Image goes here"
+                    style="border: 4px solid black; max-width: 100%"
+                  />
                 </div>
+              </div>
+              <div class="col-md-7">
+                <p id="modalBodyText"></p>
+              </div>
             </div>
-            <div class="modal-footer">
-                <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                >
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<script>
-    const cardRow = document.getElementById("card-row");
-    const originalCard = cardRow.querySelector(".card");
-    const modalTitle = document.querySelector(".modal-title");
-    const modalBodyText = document.querySelector("#modalBodyText");
-    const modalImage = document.querySelector("#modalImage");
+    <script>
+      const cardRow = document.getElementById("card-row");
+      const originalCard = cardRow.querySelector(".card");
+      const modalTitle = document.querySelector(".modal-title");
+      const modalBodyText = document.querySelector("#modalBodyText");
+      const modalImage = document.querySelector("#modalImage");
 
-    // Function to update modal content
-    function updateModalContent(title, body, imageUrl) {
+      // Function to update modal content
+      function updateModalContent(title, body, imageUrl) {
         modalTitle.textContent = title;
         modalBodyText.textContent = body;
         modalImage.src = imageUrl;
-    }
+      }
 
-    // Add a click event listener to the original card
-    originalCard.addEventListener("click", () => {
+      // Add a click event listener to the original card
+      originalCard.addEventListener("click", () => {
         const cardTitle = originalCard.querySelector(".card-title");
         const cardText = originalCard.querySelector(".card-text");
         const cardImage = originalCard.querySelector("img");
 
         updateModalContent(
-            cardTitle.textContent,
-            cardText.textContent,
-            cardImage.src,
+          cardTitle.textContent,
+          cardText.textContent,
+          cardImage.src,
         );
-    });
+      });
 
-    cardRow.appendChild(newCard);
-</script>
-<script>
-    function readURL(input) { //gotta get input from db. how
+      cardRow.appendChild(newCard);
+    </script>
+    <script>
+      function readURL(input) {
+        //gotta get input from db. how
         if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document
+              .querySelector("#postImage")
+              .setAttribute("src", e.target.result);
+          };
+
 
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -536,11 +585,11 @@
 
             reader.readAsDataURL(input.files[0]);
         }
-    }
-</script>
-<script>
-    const {MVCObject} = await google.maps.importLibrary("core"); //import MVCObject. necessary for Places library
-    const {Autocomplete} = await google.maps.importLibrary("places"); //location autocomplete library
-</script>
-</body>
+      }
+    </script>
+    <script>
+      const {MVCObject} = await google.maps.importLibrary("core"); //import MVCObject. necessary for Places library
+      const {Autocomplete} = await google.maps.importLibrary("places"); //location autocomplete library
+    </script>
+  </body>
 </html>
