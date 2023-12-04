@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PostService {
@@ -32,11 +33,11 @@ public class PostService {
         return postRepository.getReferenceById(postId);
     }
 
-    /*Get all posts from a specific community (could use for bookmarks with some tweaks)
-    public List<Post> getAllPosts(String communityId) {
-        if (communityId != null) {
-            return postRepository.search(communityId);
+    // Get all posts from a specific community (could use for bookmarks with some tweaks)
+    public List<Post> getAllPosts(long communityId) {
+        if (!Objects.isNull(communityId) ) {
+            return postRepository.findPostsByCommunityId(communityId);
         }
         return postRepository.findAll();
-    } */
+    }
 }

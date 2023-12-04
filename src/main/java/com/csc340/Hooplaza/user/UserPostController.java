@@ -42,7 +42,7 @@ public class UserPostController {
     }
 
     @PostMapping("/update")
-    public String updateProduct(Post post) {
+    public String updatePost(Post post) {
         service.savePost(post);
         return "redirect:/user/board";
     }

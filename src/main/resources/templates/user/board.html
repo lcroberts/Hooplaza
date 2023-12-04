@@ -15,6 +15,10 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <style>
         body {
             padding-top: 67px;
@@ -281,16 +285,19 @@
                     <div class="modal-footer">
                         <div class="container-fluid">
                             <div class="row justify-content-start">
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <label
                                             class="btn btn-primary btn-sm btn-floating rounded-circle"
                                     >
                                         <span class="bi bi-paperclip"></span>
                                         <input id="imageURL" name="imageURL" type="file"
-                                               accept="image/*"
+                                               accept="image/*" onchange="readURL(this)"
                                                hidden
                                         />
                                     </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="" id="previewImage" style='height:30px;'>
                                 </div>
                                 <div class="col-sm-4">
                                     <select class="btn btn-light btn-sm dropdown-toggle" id="addTag" name="addTag">
@@ -334,21 +341,22 @@
     </div>
     <div class="offcanvas-body">
         <div><h6>Your Communities</h6></div>
-        <!--
         <nav>
-                <div id="switchCommunity">
-                    <div th:each="community : ${communityList}" class="cb d-grid gap-2">
+            <div id="switchCommunity" class="cb d-grid gap-2">
+                <div th:each="community : ${communityList}" class="btn btn-dark text-start">
+                    <a th:href="@{/community/id={communityId}(id=${community.communityId})}"
+                       class="btn btn-dark text-start" th:text="${community.name}"></a>
                     <button
                             type="button"
+                            th:href="@{/community/id={communityId}(id=${community.communityId})}"
                             class="btn btn-dark text-start"
                             aria-current="page"
-                            text=""
-                            id=""
+                            th:text="${community.name}"
+                            id="communityButton"
                     ></button>
                 </div>
             </div>
         </nav>
-        -->
     </div>
     <div class="offcanvas-footer">
         <p style="font-size: 12px">
@@ -523,7 +531,7 @@
 
             var reader = new FileReader();
             reader.onload = function (e) {
-                document.querySelector("#postImage").setAttribute("src",e.target.result)
+                document.querySelector("#previewImage").setAttribute("src", e.target.result)
             };
 
             reader.readAsDataURL(input.files[0]);
