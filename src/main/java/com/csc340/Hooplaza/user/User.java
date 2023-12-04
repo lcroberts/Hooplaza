@@ -51,7 +51,7 @@ public class User {
     )
     private List<Community> moderatorOf = new ArrayList<>();
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Post> bookmarks = new ArrayList<>();
 
     public User(String name, String email, List<Community> communities, String role, String password) {
