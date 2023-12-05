@@ -219,8 +219,10 @@ public class AdminController {
     public String removeModerator(@PathVariable long id, @PathVariable long commId, Model model) {
         User user = userService.getUser(id);
         user.getModeratorOf().remove(commService.getById(commId));
-        user.setRole("USER");
-        userService.updateUser(user);
+        if (user.getModeratorOf().isEmpty() || user.getModeratorOf() == null) {
+            user.setRole("USER");
+            userService.updateUser(user);
+        }
         return "redirect:/admin/community/details/id=" + commId;
     }
 }
