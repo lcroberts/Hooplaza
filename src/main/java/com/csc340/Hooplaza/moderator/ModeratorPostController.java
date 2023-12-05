@@ -1,9 +1,10 @@
-package com.csc340.Hooplaza.user;
+package com.csc340.Hooplaza.moderator;
 
-import com.csc340.Hooplaza.community.Community;
 import com.csc340.Hooplaza.community.CommunityService;
 import com.csc340.Hooplaza.post.Post;
 import com.csc340.Hooplaza.post.PostService;
+import com.csc340.Hooplaza.user.User;
+import com.csc340.Hooplaza.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,10 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/user/post")
+@RequestMapping("/mod/post")
 @Controller
-public class UserPostController {
-
+public class ModeratorPostController {
     @Autowired
     private CommunityService communityService;
     @Autowired
@@ -30,23 +30,22 @@ public class UserPostController {
         Authentication userAuthentication = SecurityContextHolder.getContext().getAuthentication();
         //we're gonna need a global(?) variable to determine which community were in. Or a dropdown menu?
         User user = userService.getUserByEmail(userAuthentication.getName());
-        //get current community id
-        post.setCommunityId(user.getLastActiveCommunityId());
+        //Community community = communityService.getCommunityByLocation(location);
         post.setUserId(user.getUserId());
         postService.savePost(post);
-        return "redirect:/user/board";
+        return "redirect:/mod";
     }
 
     @GetMapping("/delete/id={productId}")
     public String deletePost(@PathVariable long postId, Model model) {
         postService.deletePost(postId);
-        return "redirect:/user/board";
+        return "redirect:/mod/board";
     }
 
     @PostMapping("/update")
     public String updatePost(Post post) {
         postService.savePost(post);
-        return "redirect:/user/board";
+        return "redirect:/mod/board";
     }
 
     @GetMapping("/bookmark/id={postId}")
@@ -57,6 +56,6 @@ public class UserPostController {
             user.getBookmarks().add(post);
             userService.updateUser(user);
         }
-        return "redirect:/user/board";
+        return "redirect:/mod/board";
     }
 }
