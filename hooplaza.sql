@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 05, 2023 at 03:04 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Dec 05, 2023 at 04:41 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `community` (
 --
 
 INSERT INTO `community` (`community_id`, `community_active`, `description`, `location_id`, `name`) VALUES
-(1, b'1', 'This is an example description.', 'Test', 'Test');
+(1, b'1', 'This is an example description.', 'Greensboro', 'UNCG');
 
 -- --------------------------------------------------------
 
