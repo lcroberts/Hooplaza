@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "outDir": "js",
+    "sourceMap": true,
+    "strict": true,
+    "allowJs": true,
+    "target": "es2017"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -8,14 +8,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Communities</title>
+    <title>Community Requests</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
       body {
         padding-top: 67px;
@@ -63,7 +63,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/admin/requests"
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/admin/requests"
                 >Requests</a
               >
             </li>
@@ -76,9 +79,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/admin/communities"
-                >Communities</a
-              >
+              <a class="nav-link" href="/admin/communities">Communities</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/admin/communities/removed"
@@ -95,24 +96,28 @@
       </div>
     </nav>
 
-    <div id="post-container">
+    <div id="post-container" th:each="request : ${requestList}">
       <div class="container">
-        <div id="card-row" th:each="community : ${communities}">
+        <div id="card-row">
           <div class="card mb-3">
             <div class="card-body">
-              <h5 class="card-title" th:text="${community.name}"></h5>
-              <h6 class="card-subtitle" th:text="${community.locationId}"></h6>
-              <p class="card-text" th:text="${community.description}"></p>
+              <h5 class="card-title" th:text="${request.name}"></h5>
+              <a th:href="@{/admin/user/details/id={id}(id=${request.userId})}">
+                <h6 class="card-subtitle" th:text="${request.userName}"></h6>
+              </a>
+              <p class="card-text" th:text="${request.body}"></p>
             </div>
             <div class="card-footer">
               <a
-                th:href="@{/admin/community/details/id={id}(id=${community.communityId})}"
+                th:href="@{/admin/requests/accept/id={id}(id=${request.requestId})}"
                 class="btn btn-primary"
-                >Details</a
+                >Approve</a
               >
-              <!-- <a href="board-admin.html" class="btn btn-primary" -->
-              <!--   >View Community</a -->
-              <!-- > -->
+              <a
+                th:href="@{/admin/requests/deny/id={id}(id=${request.requestId})}"
+                class="btn btn-Secondary"
+                >Deny</a
+              >
             </div>
           </div>
         </div>

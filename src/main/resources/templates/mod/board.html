@@ -15,6 +15,13 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <style>
       body {
         padding-top: 67px;
@@ -128,10 +135,17 @@
               ></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/user/bookmarks">Bookmarks</a>
+              <a class="nav-link" aria-current="page" href="/mod/bookmarks"
+                >Bookmarks</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/user/board">Board</a>
+              <a class="nav-link active" href="/mod/board">Board</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/mod/communities"
+                >Moderated Communities</a
+              >
             </li>
           </ul>
           <form class="form-inline" th:action="@{/logout}" method="post">
@@ -242,7 +256,7 @@
     </div>
 
     <!-- Post Modal -->
-    <form action="/user/post/create" method="post">
+    <form action="/mod/post/create" method="post">
       <div class="modal fade" id="newPost" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -351,62 +365,61 @@
 
     <!-- Offcanvas (Sidebar) -->
     <div
-      class="offcanvas offcanvas-start text-bg-dark"
-      tabindex="-1"
-      id="sidebar"
-      aria-labelledby="sidebarLabel"
-      data-bs-theme="dark"
+            class="offcanvas offcanvas-start text-bg-dark"
+            tabindex="-1"
+            id="sidebar"
+            aria-labelledby="sidebarLabel"
+            data-bs-theme="dark"
     >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div><h6>Your Communities</h6></div>
-        <nav>
-          <div id="switchCommunity" class="cb d-grid gap-2">
-            <div th:each="community : ${communityList}" class="btn btn-dark text-start">
-              <a th:href="@{/user/board/id={communityId}(communityId=${community.communityId})}"
-                 class="btn btn-dark text-start" th:text="${community.name}"></a>
-              <br>
-            </div>
-          </div>
-        </nav>
-        <br><br>
-        <div><h6>Search all communities</h6></div>
-        <form th:action="@{/user/communities/bsearch}">
-          Filter: <input type="text" name="keyword" id="keyword" size="10" th:value="${keyword}" required />
-          <input type="submit" value="Search" />
-          <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
-        </form>
-        <br>
-        <nav>
-          <div id="searchCommunity" class="cb d-grid gap-2">
-            <div th:each="community : ${allCommunities}" class="btn btn-dark text-start">
-              <a th:href="@{/user/board/id={communityId}(communityId=${community.communityId})}"
-                 class="btn btn-dark text-start" th:text="${community.name}"></a>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div class="offcanvas-footer">
-        <p style="font-size: 12px">
-          Don't see your community?
-          <button
-            type="button"
-            class="btn btn-sm btn-link"
-            data-bs-toggle="modal"
-            data-bs-target="#requestCommunity"
-          >
-            Request one
-          </button>
-        </p>
-      </div>
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+            ></button>
+        </div>
+        <div class="offcanvas-body">
+            <div><h6>Your Communities</h6></div>
+            <nav>
+                <div id="switchCommunity" class="cb d-grid gap-2">
+                    <div th:each="community : ${communityList}" class="btn btn-dark text-start">
+                        <a th:href="@{/mod/board/id={communityId}(communityId=${community.communityId})}"
+                           class="btn btn-dark text-start" th:text="${community.name}"></a>
+                    </div>
+                </div>
+            </nav>
+            <br><br>
+            <div><h6>Search all communities</h6></div>
+            <form class="mt-0" th:action="@{/mod/communities/psearch}">
+                <input type="text" name="keyword" id="keyword" placeholder="Filter" size="20" th:value="${keyword}" required />
+                <input type="submit" value="Search" />
+                <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+            </form>
+            <br>
+            <nav>
+                <div id="searchCommunity" class="cb d-grid gap-2">
+                    <div th:each="community : ${allCommunities}" class="btn btn-dark text-start">
+                        <a th:href="@{/mod/board/id={communityId}(communityId=${community.communityId})}"
+                           class="btn btn-dark text-start" th:text="${community.name}"></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="offcanvas-footer">
+            <p style="font-size: 12px">
+                Don't see your community?
+                <button
+                        type="button"
+                        class="btn btn-sm btn-link"
+                        data-bs-toggle="modal"
+                        data-bs-target="#requestCommunity"
+                >
+                    Request one
+                </button>
+            </p>
+        </div>
     </div>
 
     <!-- Post Button -->
@@ -475,12 +488,11 @@
                       ></p>
                     </div>
                     <div class="col text-end">
-                      <!-- <a -->
-                      <!--   class="btn btn-primary" -->
-                      <!--   th:href="@{/user/post/bookmark/id={id}(id=${post.postId})}" -->
-                      <!--   >Bookmark</a -->
-                      <!-- > -->
-                      <p>This post is bookmarked</p>
+                      <a
+                        class="btn btn-primary"
+                        th:href="@{/mod/post/bookmark/id={id}(id=${post.postId})}"
+                        >Bookmark</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -582,15 +594,15 @@
               .setAttribute("src", e.target.result);
           };
 
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document
+              .querySelector("#previewImage")
+              .setAttribute("src", e.target.result);
+          };
+
           reader.readAsDataURL(input.files[0]);
         }
-      }
-    </script>
-    <script type="text/javascript">
-      function clearSearch() {
-        var searchKey = document.getElementById("keyword");
-        searchKey.setAttribute("value", "");
-        window.location = "[[@{/user/communities/bsearch}]]"
       }
     </script>
     <script>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Communities</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        padding-top: 67px;
+      }
+
+      .offcanvas-footer {
+        padding: 0.5rem 0.5rem;
+        border-top: 1px solid #dee2e6;
+      }
+
+      #post-container {
+        max-height: calc(100vh - 125px);
+        overflow-y: auto;
+
+        .card-text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+        }
+
+        .square-image {
+          position: relative;
+          overflow: hidden;
+          padding-bottom: 100%;
+          background-color: black;
+        }
+
+        .square-image img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .location {
+        }
+
+        .floating-button {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          bottom: 40rem;
+          right: 40rem;
+          background-color: transparent !important;
+          color: #fff;
+          border-radius: 50px;
+          align-items: center;
+          align-self: flex-end;
+          box-shadow: 2px 2px 3px #999;
+          z-index: 2000;
+        }
+
+        #map {
+          height: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <nav
+      class="navbar fixed-top navbar-expand bg-dark border-bottom"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                data-bs-toggle="offcanvas"
+                href="#sidebar"
+                aria-controls="sidebar"
+                ><span class="navbar-toggler-icon"></span
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/mod/bookmarks"
+                >Bookmarks</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/mod/board">Board</a>
+            </li>
+            <li>
+              <a class="nav-link active" href="/mod/communities"
+                >Moderated Communities</a
+              >
+            </li>
+          </ul>
+          <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-secondary me-2" type="submit">
+              Sign Out
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div id="post-container">
+      <div class="container">
+        <div id="card-row" th:each="community : ${communities}">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${community.name}"></h5>
+              <h6 class="card-subtitle" th:text="${community.locationId}"></h6>
+              <p class="card-text" th:text="${community.description}"></p>
+            </div>
+            <div class="card-footer">
+              <a
+                th:href="@{/mod/community/details/id={id}(id=${community.communityId})}"
+                class="btn btn-primary"
+                >Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offcanvas (Sidebar) -->
+    <div
+            class="offcanvas offcanvas-start text-bg-dark"
+            tabindex="-1"
+            id="sidebar"
+            aria-labelledby="sidebarLabel"
+            data-bs-theme="dark"
+    >
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebarLabel">Communities</h5>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+            ></button>
+        </div>
+        <div class="offcanvas-body">
+            <div><h6>Your Communities</h6></div>
+            <nav>
+                <div id="switchCommunity" class="cb d-grid gap-2">
+                    <div th:each="community : ${communityList}" class="btn btn-dark text-start">
+                        <a th:href="@{/mod/board/id={communityId}(communityId=${community.communityId})}"
+                           class="btn btn-dark text-start" th:text="${community.name}"></a>
+                    </div>
+                </div>
+            </nav>
+            <br><br>
+            <div><h6>Search all communities</h6></div>
+            <form class="mt-0" th:action="@{/mod/communities/psearch}">
+                <input type="text" name="keyword" id="keyword" placeholder="Filter" size="20" th:value="${keyword}" required />
+                <input type="submit" value="Search" />
+                <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+            </form>
+            <br>
+            <nav>
+                <div id="searchCommunity" class="cb d-grid gap-2">
+                    <div th:each="community : ${allCommunities}" class="btn btn-dark text-start">
+                        <a th:href="@{/mod/board/id={communityId}(communityId=${community.communityId})}"
+                           class="btn btn-dark text-start" th:text="${community.name}"></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="offcanvas-footer">
+            <p style="font-size: 12px">
+                Don't see your community?
+                <button
+                        type="button"
+                        class="btn btn-sm btn-link"
+                        data-bs-toggle="modal"
+                        data-bs-target="#requestCommunity"
+                >
+                    Request one
+                </button>
+            </p>
+        </div>
+
+  </body>
+</html>
