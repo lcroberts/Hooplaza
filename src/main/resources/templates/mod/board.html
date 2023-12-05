@@ -135,10 +135,7 @@
               ></a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="/mod/bookmarks"
+              <a class="nav-link" aria-current="page" href="/mod/bookmarks"
                 >Bookmarks</a
               >
             </li>
@@ -392,18 +389,10 @@
               class="btn btn-dark text-start"
             >
               <a
-                th:href="@{/community/id={communityId}(id=${community.communityId})}"
+                th:href="@{/mod/board/id={communityId}(communityId=${community.communityId})}"
                 class="btn btn-dark text-start"
                 th:text="${community.name}"
               ></a>
-              <button
-                type="button"
-                th:href="@{/community/id={communityId}(id=${community.communityId})}"
-                class="btn btn-dark text-start"
-                aria-current="page"
-                th:text="${community.name}"
-                id="communityButton"
-              ></button>
             </div>
           </div>
         </nav>

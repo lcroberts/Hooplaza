@@ -209,7 +209,8 @@ public class AdminController {
     @GetMapping("/mod/add/id={id}/community/commId={commId}")
     public String addModerator(@PathVariable long id, @PathVariable long commId, Model model) {
         User user = userService.getUser(id);
-        user.getModeratorOf().add(commService.getById(id));
+        user.getModeratorOf().add(commService.getById(commId));
+        user.setRole("MOD");
         userService.updateUser(user);
         return "redirect:/admin/community/details/id=" + commId;
     }
@@ -218,6 +219,7 @@ public class AdminController {
     public String removeModerator(@PathVariable long id, @PathVariable long commId, Model model) {
         User user = userService.getUser(id);
         user.getModeratorOf().remove(commService.getById(commId));
+        user.setRole("USER");
         userService.updateUser(user);
         return "redirect:/admin/community/details/id=" + commId;
     }

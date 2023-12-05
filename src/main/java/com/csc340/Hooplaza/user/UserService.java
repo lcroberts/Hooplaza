@@ -77,9 +77,6 @@ public class UserService {
         if (user.getEmail() != null) {
             existing.setEmail(user.getEmail());
         }
-        if (user.getPassword() != null) {
-            existing.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
         if (user.getRole() != null) {
             existing.setRole(user.getRole());
         }
@@ -92,6 +89,7 @@ public class UserService {
         if (user.getModeratorOf() != null) {
             existing.setModeratorOf(user.getModeratorOf());
         }
+        existing.setLastActiveCommunityId(user.getLastActiveCommunityId());
         existing.setActive(user.isActive());
 
         repo.save(existing);
