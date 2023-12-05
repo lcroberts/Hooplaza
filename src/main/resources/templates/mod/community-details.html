@@ -214,6 +214,13 @@
             <div class="ms-2">
               <a><p th:text="${user.name}"></p></a>
             </div>
+            <div class="me-2">
+              <a
+                class="btn btn-primary"
+                th:href="@{/mod/kick/user/id={id}/commId={commId}(id=${user.userId}, commId=${community.communityId})}"
+                >Kick User</a
+              >
+            </div>
           </li>
         </ul>
         <br />

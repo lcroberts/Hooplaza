@@ -118,4 +118,14 @@ public class ModeratorController {
 
         return "redirect:/mod/community/details/id=" + commId;
     }
+
+    @GetMapping("/kick/user/id={userId}/commId={commId}")
+    public String kickUser(@PathVariable long userId, @PathVariable long commId) {
+        User user = userService.getUser(userId);
+        Community community = commService.getById(commId);
+        user.getCommunities().remove(community);
+        userService.updateUser(user);
+
+        return "redirect:/mod/community/details/id=" + commId;
+    }
 }
