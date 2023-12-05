@@ -92,7 +92,7 @@ public class AdminController {
         community.setLocationId(request.getLocationId());
         community.setDescription("");
 
-//        requester.setRole("MOD");
+        requester.setRole("MOD");
         requester.getModeratorOf().add(community);
         requester.getCommunities().add(community);
 

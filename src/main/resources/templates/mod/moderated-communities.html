@@ -1,0 +1,148 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Communities</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        padding-top: 67px;
+      }
+
+      .offcanvas-footer {
+        padding: 0.5rem 0.5rem;
+        border-top: 1px solid #dee2e6;
+      }
+
+      #post-container {
+        max-height: calc(100vh - 125px);
+        overflow-y: auto;
+
+        .card-text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+        }
+
+        .square-image {
+          position: relative;
+          overflow: hidden;
+          padding-bottom: 100%;
+          background-color: black;
+        }
+
+        .square-image img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .location {
+        }
+
+        .floating-button {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          bottom: 40rem;
+          right: 40rem;
+          background-color: transparent !important;
+          color: #fff;
+          border-radius: 50px;
+          align-items: center;
+          align-self: flex-end;
+          box-shadow: 2px 2px 3px #999;
+          z-index: 2000;
+        }
+
+        #map {
+          height: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <nav
+      class="navbar fixed-top navbar-expand bg-dark border-bottom"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                data-bs-toggle="offcanvas"
+                href="#sidebar"
+                aria-controls="sidebar"
+                ><span class="navbar-toggler-icon"></span
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/mod/bookmarks"
+                >Bookmarks</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/mod/board">Board</a>
+            </li>
+            <li>
+              <a class="nav-link active" href="/mod/communities"
+                >Moderated Communities</a
+              >
+            </li>
+          </ul>
+          <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-secondary me-2" type="submit">
+              Sign Out
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div id="post-container">
+      <div class="container">
+        <div id="card-row" th:each="community : ${communities}">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${community.name}"></h5>
+              <h6 class="card-subtitle" th:text="${community.locationId}"></h6>
+              <p class="card-text" th:text="${community.description}"></p>
+            </div>
+            <div class="card-footer">
+              <a
+                th:href="@{/mod/community/details/id={id}(id=${community.communityId})}"
+                class="btn btn-primary"
+                >Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
