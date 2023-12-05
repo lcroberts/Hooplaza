@@ -54,7 +54,7 @@ public class UserController {
         User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (user.getLastActiveCommunityId() != 0) {
             int communityId = user.getLastActiveCommunityId();
-            return "redirect:/board/id={communityId}";
+            return "redirect:/user/board/id=" + communityId;
         } else {
             List<Post> posts = postService.getAllPosts();
             List<Community> communityList = user.getCommunities();
@@ -75,7 +75,8 @@ public class UserController {
     @GetMapping("/board/id={communityId}")
     public String board(@PathVariable long communityId, Model model) {
         User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        user.setLastActiveCommunityId((int)communityId);
+        user.setLastActiveCommunityId((int) communityId);
+        userService.updateUser(user);
         List<Post> posts = postService.getAllPosts(communityId);
         List<Community> communityList = user.getCommunities();
         for (int i = 0; i < communityList.size(); ) {
