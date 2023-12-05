@@ -368,21 +368,14 @@
       </div>
       <div class="offcanvas-body">
         <div><h6>Your Communities</h6></div>
-        <!--
         <nav>
-                <div id="switchCommunity">
-                    <div th:each="community : ${communityList}" class="cb d-grid gap-2">
-                    <button
-                            type="button"
-                            class="btn btn-dark text-start"
-                            aria-current="page"
-                            text=""
-                            id=""
-                    ></button>
-                </div>
+          <div id="switchCommunity" class="cb d-grid gap-2">
+            <div th:each="community : ${communityList}" class="btn btn-dark text-start">
+              <a th:href="@{/user/board/id={communityId}(communityId=${community.communityId})}"
+                 class="btn btn-dark text-start" th:text="${community.name}"></a>
             </div>
+          </div>
         </nav>
-        -->
       </div>
       <div class="offcanvas-footer">
         <p style="font-size: 12px">

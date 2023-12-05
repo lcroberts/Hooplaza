@@ -40,6 +40,8 @@ public class User {
     )
     private List<Community> communities = new ArrayList<>();
 
+    private int lastActiveCommunityId;
+
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
@@ -54,12 +56,13 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Post> bookmarks = new ArrayList<>();
 
-    public User(String name, String email, List<Community> communities, String role, String password) {
+    public User(String name, String email, List<Community> communities, String role, String password, int lastActiveCommunityId) {
         this.name = name;
         this.email = email;
         this.communities = communities;
         this.role = role;
         this.password = password;
+        this.lastActiveCommunityId = lastActiveCommunityId;
     }
 
 
