@@ -19,6 +19,9 @@ public class CommunityService {
     public List<Community> getAllCommunities() {
         return repo.findAll();
     }
+    public List<Community> getAllCommunities(String keyword) {
+        return repo.search(keyword);
+    }
 
     public Community getById(long commId) {
         return repo.getReferenceById(commId);

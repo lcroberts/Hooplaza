@@ -373,6 +373,23 @@
             <div th:each="community : ${communityList}" class="btn btn-dark text-start">
               <a th:href="@{/user/board/id={communityId}(communityId=${community.communityId})}"
                  class="btn btn-dark text-start" th:text="${community.name}"></a>
+              <br>
+            </div>
+          </div>
+        </nav>
+        <br><br>
+        <div><h6>Search all communities</h6></div>
+        <form th:action="@{/user/communities/bsearch}">
+          Filter: <input type="text" name="keyword" id="keyword" size="10" th:value="${keyword}" required />
+          <input type="submit" value="Search" />
+          <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+        </form>
+        <br>
+        <nav>
+          <div id="searchCommunity" class="cb d-grid gap-2">
+            <div th:each="community : ${allCommunities}" class="btn btn-dark text-start">
+              <a th:href="@{/user/board/id={communityId}(communityId=${community.communityId})}"
+                 class="btn btn-dark text-start" th:text="${community.name}"></a>
             </div>
           </div>
         </nav>
@@ -567,6 +584,13 @@
 
           reader.readAsDataURL(input.files[0]);
         }
+      }
+    </script>
+    <script type="text/javascript">
+      function clearSearch() {
+        var searchKey = document.getElementById("keyword");
+        searchKey.setAttribute("value", "");
+        window.location = "[[@{/user/communities/bsearch}]]"
       }
     </script>
     <script>
