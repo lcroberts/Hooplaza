@@ -50,7 +50,32 @@ public class ModeratorController {
     @GetMapping({"/board"})
     public String board(Model model) {
         User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Post> posts = postService.getAllPosts();
+        if (user.getLastActiveCommunityId() != 0) {
+            int communityId = user.getLastActiveCommunityId();
+            return "redirect:/mod/board/id=" + communityId;
+        } else {
+            List<Post> posts = postService.getAllPosts();
+            List<Community> communityList = user.getCommunities();
+            for (int i = 0; i < communityList.size(); ) {
+                Community community = communityList.get(i);
+                if (!community.isCommunityActive()) {
+                    communityList.remove(community);
+                } else {
+                    i++;
+                }
+            }
+            model.addAttribute("postList", posts);
+            model.addAttribute("communityList", communityList);
+            return "mod/board";
+        }
+    }
+
+    @GetMapping("/board/id={communityId}")
+    public String board(@PathVariable long communityId, Model model) {
+        User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        user.setLastActiveCommunityId((int) communityId);
+        userService.updateUser(user);
+        List<Post> posts = postService.getAllPosts(communityId);
         List<Community> communityList = user.getCommunities();
         for (int i = 0; i < communityList.size(); ) {
             Community community = communityList.get(i);
@@ -60,8 +85,11 @@ public class ModeratorController {
                 i++;
             }
         }
+        Community currentCommunity = commService.getById(communityId);
+
         model.addAttribute("postList", posts);
         model.addAttribute("communityList", communityList);
+        model.addAttribute("currentCommunity", currentCommunity);
         return "mod/board";
     }
 
