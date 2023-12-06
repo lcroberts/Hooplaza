@@ -134,6 +134,9 @@
                     <a class="nav-link active" href="/user/board">Board</a>
                 </li>
             </ul>
+            <!--div type="text" style="display: block; margin-right:8px"
+                class="text-white" th:text="${currentCommunity.name}">
+            </div-->
             <form class="form-inline" th:action="@{/logout}" method="post">
                 <button class="btn btn-secondary me-2" type="submit">
                     Sign Out
@@ -245,7 +248,6 @@
 <form action="/user/post/create" method="post">
     <div class="modal fade" id="newPost" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-                <div id="communityId" content=""></div>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">New Post</h5>
@@ -316,22 +318,25 @@
                                     <select
                                             class="btn btn-light btn-sm dropdown-toggle"
                                             id="tag"
-                                            name="addTag"
+                                            name="tag"
                                     >
                                         <option
                                                 class="dropdown-item badge rounded-pill bg-warning"
+                                                name="Club"
                                                 value="Club"
                                         >
                                             Club
                                         </option>
                                         <option
-                                                class="dropdown-item badge rounded-pill bg-danger"
+                                                class="dropdown-item badge rounded-pill bg-info"
+                                                name="Project"
                                                 value="Project"
                                         >
                                             Project
                                         </option>
                                         <option
                                                 class="dropdown-item badge rounded-pill bg-success"
+                                                name="Event"
                                                 value="Event"
                                         >
                                             Event
@@ -339,6 +344,7 @@
                                         <hr class="dropdown-divider"/>
                                         <option
                                                 class="dropdown-item"
+                                                name=""
                                                 value=""
                                                 selected="selected"
                                         >
@@ -390,6 +396,7 @@
             <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
         </form>
         <br>
+        <div class="container-fluid">
         <nav>
             <div id="searchCommunity" class="cb d-grid gap-2">
                 <div th:each="community : ${allCommunities}" class="btn btn-dark text-start">
@@ -398,6 +405,7 @@
                 </div>
             </div>
         </nav>
+        </div>
     </div>
     <div class="offcanvas-footer">
         <p style="font-size: 12px">
@@ -467,7 +475,8 @@
                                     <small class="text-muted">Members: 15</small>
                                 </div>
                                 <div class="col text-end">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                    <div th:value="${post.postDate}" onload="showDate(this)"></div>
+                                    <small id="postDate" class="text-muted" text=""></small>
                                 </div>
                             </div>
                         </div>
@@ -557,7 +566,7 @@
     function updateModalContent(title, body, imageUrl) {
         modalTitle.textContent = title;
         modalBodyText.textContent = body;
-        modalImage.src = imageUrl;
+        modalImage.src = readURL(imageUrl);
     }
 
     // Add a click event listener to the original card
@@ -601,6 +610,10 @@
     }
     if (typeof currentCommunity !== 'undefined') {
         document.getElementById("communityId").setAttribute("content", "${currentCommunity.communityId}");
+    }
+
+    function showDate(postDate) {
+        document.getElementById("postDate").setAttribute("text", postDate.toString());
     }
 
 </script>

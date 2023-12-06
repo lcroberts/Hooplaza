@@ -31,6 +31,7 @@ public class ModeratorPostController {
         //we're gonna need a global(?) variable to determine which community were in. Or a dropdown menu?
         User user = userService.getUserByEmail(userAuthentication.getName());
         //Community community = communityService.getCommunityByLocation(location);
+        post.setCommunityId(user.getLastActiveCommunityId());
         post.setUserId(user.getUserId());
         postService.savePost(post);
         return "redirect:/mod";
